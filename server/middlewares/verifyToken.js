@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET_KEY} = process.env
+const { JWT_SECRET_KEY } = process.env;
 
 //Get accessToken, verify, add user to req
 const verifyAccessToken = asyncHandler(async (req, res, next) => {
@@ -23,6 +23,17 @@ const verifyAccessToken = asyncHandler(async (req, res, next) => {
   }
 });
 
+const isAdmin = asyncHandler((req, res, next) => {
+  const { role } = req.user;
+  if (role !== 'admin')
+    return res.status(401).json({
+      success: false,
+      message: 'Require admin role',
+    });
+  next();
+});
+
 module.exports = {
   verifyAccessToken,
+  isAdmin,
 };

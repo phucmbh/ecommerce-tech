@@ -44,13 +44,13 @@ const login = asyncHandler(async (req, res) => {
 
   //plan oject
   if (user && user.isCorrectPassword(password)) {
-    const { password, role, ...userData } = user.toObject();
+    const { password, role, refreshToken, ...userData } = user.toObject();
     const accessToken = generateAccessToken(user._id, role);
-    const refreshToken = generateRefreshToken(user._id);
-    await User.findByIdAndUpdate(user._id, { refreshToken }, { new: true });
-    const _7DAYS = 7 * 24 * 60 * 60 * 1000;
-    res.cookie('refreshToken', refreshToken, {
-      maxAge: _7DAYS,
+    const newRefreshToken = generateRefreshToken(user._id);
+    await User.findByIdAndUpdate(user._id, { newRefreshToken }, { new: true });
+    const SEVEN_DAYS = 7 * 1000 * 60 * 60 * 24;
+    res.cookie('refreshToken', newRefreshToken, {
+      maxAge: SEVEN_DAYS,
       httpOnly: true,
     });
     return res.status(200).json({
@@ -82,16 +82,6 @@ const logout = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: true,
     message: 'Logout successful',
-  });
-});
-
-//Verify accessToken req.user {_id:..., role:...}
-const getUser = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const user = await User.findById(_id).select('-password -role -refreshToken');
-  return res.status(200).json({
-    success: true,
-    resutl: user ? user : 'User not found',
   });
 });
 
@@ -164,12 +154,74 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
+//Verify accessToken req.user {_id:..., role:...}
+const getUser = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  const user = await User.findById(_id).select('-password -role -refreshToken');
+  return res.status(200).json({
+    success: user ? true : false,
+    resutl: user ? user : 'User is not found',
+  });
+});
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  const user = await User.find({}).select('-password -refreshToken -role');
+  return res.status(200).json({
+    success: user ? true : false,
+    users: user ? user : 'Users are not found',
+  });
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  const { _id } = req.query;
+  const result = await User.findByIdAndDelete({ _id });
+
+  res.status(200).json({
+    success: result ? true : false,
+    message: result
+      ? `User with email: ${result.email} has been deleted`
+      : 'User is not found',
+  });
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  if (!_id || Object.keys(req.body).length === 0)
+    throw new Error('Update user: Missing in put !!!');
+  const result = await User.findByIdAndUpdate(_id, req.body, { new: true });
+
+  res.status(200).json({
+    success: result ? true : false,
+    message: result ? result : 'Some thing went wrong',
+  });
+});
+
+
+const updateUserByAdmin = asyncHandler(async (req, res) => {
+  const { uid } = req.params;
+  //req.body: {}   check object to see if it exists
+  if (Object.keys(req.body).length === 0)
+    throw new Error('Update user by admin: Missing in put !!!');
+  const result = await User.findByIdAndUpdate({ _id: uid}, req.body, {
+    new: true,
+  }).select('-password -role -refreshToken');
+
+  res.status(200).json({
+    success: result ? true : false,
+    message: result ? result : 'Some thing went wrong',
+  });
+});
+
 module.exports = {
   register,
   login,
   logout,
-  getUser,
   refreshAccessToken,
   forgotPassword,
   resetPassword,
+  getUser,
+  getAllUsers,
+  deleteUser,
+  updateUser,
+  updateUserByAdmin,
 };
