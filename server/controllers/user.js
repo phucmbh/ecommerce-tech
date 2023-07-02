@@ -5,13 +5,11 @@ const {
   generateRefreshToken,
 } = require('../middlewares/jwt');
 const { JWT_SECRET_KEY } = process.env;
-
 const User = require('../models/user');
-
 const asyncHandler = require('express-async-handler');
 const sendMail = require('../utils/sendMail');
 
-const register = asyncHandler(async (req, res) => {
+exports.register = asyncHandler(async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
   if (!email || !password || !firstName || !lastName)
     return res.status(400).json({
@@ -32,7 +30,7 @@ const register = asyncHandler(async (req, res) => {
 });
 
 //Check password, create accessToken, create refreshToken - update in db - store in cookie
-const login = asyncHandler(async (req, res) => {
+exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(400).json({
@@ -64,7 +62,7 @@ const login = asyncHandler(async (req, res) => {
 });
 
 // Delete refresh token in db and cookies
-const logout = asyncHandler(async (req, res) => {
+exports.logout = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
   if (!cookie || !cookie.refreshToken)
     throw new Error('No refresh token in cookies');
@@ -86,7 +84,7 @@ const logout = asyncHandler(async (req, res) => {
 });
 
 //Retrive refresh token in cookies, verify, check with refresh token in db
-const refreshAccessToken = asyncHandler(async (req, res) => {
+exports.refreshAccessToken = asyncHandler(async (req, res) => {
   // {refreshToken: ...}
   const cookie = req.cookies;
   if (!cookie.refreshToken) throw new Error('No refresh token in cookie');
@@ -111,7 +109,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 // Client check mail -> click link -> enter new password -> send to server (pass, token)
 // Check token, change password
 
-const forgotPassword = asyncHandler(async (req, res) => {
+exports.forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.query;
   if (!email) throw new Error('Missing email');
   const user = await User.findOne({ email });
@@ -127,7 +125,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 });
 
 //From password and token from client -> check token, change password
-const resetPassword = asyncHandler(async (req, res) => {
+exports.resetPassword = asyncHandler(async (req, res) => {
   const { password, token } = req.body;
 
   if (!password || !token) throw new Error('Missing password or token');
@@ -155,7 +153,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 //Verify accessToken req.user {_id:..., role:...}
-const getUser = asyncHandler(async (req, res) => {
+exports.getUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const user = await User.findById(_id).select('-password -role -refreshToken');
   return res.status(200).json({
@@ -164,7 +162,7 @@ const getUser = asyncHandler(async (req, res) => {
   });
 });
 
-const getAllUsers = asyncHandler(async (req, res) => {
+exports.getAllUsers = asyncHandler(async (req, res) => {
   const user = await User.find({}).select('-password -refreshToken -role');
   return res.status(200).json({
     success: user ? true : false,
@@ -172,7 +170,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   });
 });
 
-const deleteUser = asyncHandler(async (req, res) => {
+exports.deleteUser = asyncHandler(async (req, res) => {
   const { _id } = req.query;
   const result = await User.findByIdAndDelete({ _id });
 
@@ -184,7 +182,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   });
 });
 
-const updateUser = asyncHandler(async (req, res) => {
+exports.updateUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   if (!_id || Object.keys(req.body).length === 0)
     throw new Error('Update user: Missing in put !!!');
@@ -197,7 +195,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 
-const updateUserByAdmin = asyncHandler(async (req, res) => {
+exports.updateUserByAdmin = asyncHandler(async (req, res) => {
   const { uid } = req.params;
   //req.body: {}   check object to see if it exists
   if (Object.keys(req.body).length === 0)
@@ -212,16 +210,4 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = {
-  register,
-  login,
-  logout,
-  refreshAccessToken,
-  forgotPassword,
-  resetPassword,
-  getUser,
-  getAllUsers,
-  deleteUser,
-  updateUser,
-  updateUserByAdmin,
-};
+

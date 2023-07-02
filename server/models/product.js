@@ -4,12 +4,12 @@ var productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: [true, 'A product must have a title'],
       trim: true,
     },
     slug: {
       type: String,
-      required: true,
+      required: [true, 'A product must have a slug'],
       unique: true,
       lowercase: true,
     },
