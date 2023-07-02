@@ -71,14 +71,14 @@ exports.getAllProducts = asyncHandler(async (req, res) => {
     }
 
     //Fields limiting
-    if(req.query.fields){
+    if (req.query.fields) {
       const fields = req.query.fields.split(',').join(' ');
       query = query.select(fields);
     }
 
     //Pagination
     const page = +req.query.page || 1;
-    const limit = +req.query.limit || process.env.LIMIT_PRODUCTS
+    const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
     const skip = (page - 1) * limit;
     query.skip(skip).limit(limit);
 
@@ -100,3 +100,46 @@ exports.getAllProducts = asyncHandler(async (req, res) => {
   }
 });
 
+exports.ratings = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  const { pid, star, comment } = req.body;
+  if (!star || !pid) throw new Error('Missing input!');
+  const product = await Product.findById(pid);
+  const alreadyRating = product?.ratings?.find(
+    (r) => r.postedBy.toString() === _id
+  );
+
+  if (alreadyRating) {
+    //update star and comment
+    await Product.updateOne(
+      { ratings: { $elemMatch: alreadyRating } },
+      {
+        $set: {
+          'ratings.$.star': star,
+          'ratings.$.comment': comment,
+        },
+      },
+      { new: true }
+    );
+  } else {
+    //add star and comment
+    await Product.findByIdAndUpdate(
+      pid,
+      { $push: { ratings: { postedBy: _id, star, comment } } },
+      {
+        new: true,
+      }
+    );
+  }
+
+  //sum ratings
+  const updatedProduct = await Product.findById(pid);
+  const ratingCount = updatedProduct.ratings.length;
+  const ratingSum = updatedProduct.ratings.reduce((sum, r) => sum + +r.star, 0);
+  updatedProduct.totalRatings = Math.round((ratingSum * 10) / ratingCount) / 10;
+  await updatedProduct.save();
+
+  return res.status(200).json({
+    success: true,
+  });
+});

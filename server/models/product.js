@@ -44,14 +44,14 @@ var productSchema = new mongoose.Schema(
       type: String,
       enum: ['Black', 'Grown', 'Yellow', 'Red', 'Green'],
     },
-    rating: [
+    ratings: [
       {
-        start: Number,
+        star: Number,
         postedBy: { type: mongoose.Types.ObjectId, ref: 'User' },
         comment: String,
       },
     ],
-    totalRating: {
+    totalRatings: {
       type: Number,
       default: 0,
     },
