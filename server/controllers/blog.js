@@ -23,11 +23,35 @@ var that = (module.exports = {
     });
   }),
 
+  getBlog: asyncHandler(async (req, res) => {
+    const { bid } = req.params;
+    const blog = await Blog.findByIdAndUpdate(
+      bid,
+      { $inc: { numberViews: 1 } },
+      { new: true }
+    )
+      .populate('usersLiked', 'firstName lastName')
+      .populate('usersDisliked', 'firstName lastName');
+    res.status(200).json({
+      success: blog ? true : false,
+      blog: blog ? blog : 'Cannot find blog',
+    });
+  }),
+
   getAllBlogs: asyncHandler(async (req, res) => {
     const blogs = await Blog.find();
     return res.json({
       success: blogs ? true : false,
       blogs: blogs ? blogs : 'Cannot get all blog',
+    });
+  }),
+
+  deleteBlog: asyncHandler(async (req, res) => {
+    const { bid } = req.params;
+    const blog = await Blog.findByIdAndDelete(bid);
+    return res.json({
+      success: blog ? true : false,
+      blogs: blog ? 'Delete successfuly' : 'Cannot get all blog',
     });
   }),
 

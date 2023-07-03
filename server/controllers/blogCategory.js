@@ -19,7 +19,7 @@ var that = (module.exports = {
   }),
 
   updateCategory: asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const { bcid } = req.params;
     const result = await BlogCategory.findByIdAndUpdate(id, req.body, {
       new: true,
     });
@@ -30,7 +30,7 @@ var that = (module.exports = {
   }),
 
   deleteCategory: asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const { bcid } = req.params;
     const result = await BlogCategory.findByIdAndDelete(id);
     return res.json({
       success: result ? true : false,
