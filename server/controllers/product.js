@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const asyncHandler = require('express-async-handler');
 const slugify = require('slugify');
+const cloudinary = require('../config/cloudinary.config');
 
 var that = (module.exports = {
   createProduct: asyncHandler(async (req, res) => {
@@ -150,5 +151,18 @@ var that = (module.exports = {
     return res.status(200).json({
       success: true,
     });
+  }),
+
+  uploadProductImage: asyncHandler(async (req, res) => {
+    try {
+      const results = await cloudinary.uploadSingle(req.file);
+      return res.json({ status: 'success', results });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        success: false,
+        message: err,
+      });
+    }
   }),
 });

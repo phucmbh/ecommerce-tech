@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const ctrls = require('../controllers/product');
-
+const upload = require('../config/multer.config');
 const { verifyAccessToken, isAdmin } = require('../middlewares/verifyToken');
 
 router.post('/', [verifyAccessToken, isAdmin], ctrls.createProduct);
@@ -9,5 +9,11 @@ router.put('/ratings', verifyAccessToken, ctrls.ratings);
 router.get('/:pid', ctrls.getProduct);
 router.put('/:pid', ctrls.updateProduct);
 router.delete('/:pid', ctrls.deleteProduct);
+router.put(
+  '/uploadimage/:pid',
+  [verifyAccessToken, isAdmin],
+  upload.single('image'),
+  ctrls.uploadProductImage
+);
 
 module.exports = router;
