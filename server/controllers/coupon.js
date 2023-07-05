@@ -19,7 +19,7 @@ var that = (module.exports = {
     const result = await Coupon.find().select('-createdAt -updatedAt');
     return res.json({
       success: result ? true : false,
-      allCoupons: result ? result : 'Cannot create Coupon',
+      allCoupons: result ? result : 'Cannot get all coupon',
     });
   }),
 
@@ -34,7 +34,7 @@ var that = (module.exports = {
     });
     return res.json({
       success: result ? true : false,
-      updatedCoupon: result ? result : 'Cannot update Coupon',
+      updatedCoupon: result ? result : 'Cannot update coupon',
     });
   }),
 
@@ -44,7 +44,7 @@ var that = (module.exports = {
     const result = await Coupon.findByIdAndDelete(cid);
     return res.json({
       success: result ? true : false,
-      deletedCoupon: result ? result : 'Cannot delete Coupon',
+      deletedCoupon: result ? result : 'Cannot delete coupon',
     });
   }),
 });

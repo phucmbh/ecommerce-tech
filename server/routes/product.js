@@ -12,7 +12,7 @@ router.delete('/:pid', ctrls.deleteProduct);
 router.put(
   '/uploadimage/:pid',
   [verifyAccessToken, isAdmin],
-  upload.single('image'),
+  upload.array('images', 10),
   ctrls.uploadProductImage
 );
 

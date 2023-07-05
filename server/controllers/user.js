@@ -215,4 +215,58 @@ var that = (module.exports = {
       message: result ? result : 'Some thing went wrong',
     });
   }),
+  updateUserAddress: asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { address } = req.body;
+    if (!address) throw new Error('No address');
+    const result = await User.findByIdAndUpdate(
+      _id,
+      { $push: { address: address } },
+      {
+        new: true,
+      }
+    ).select('-password -role -refreshToken');
+
+    res.status(200).json({
+      success: result ? true : false,
+      message: result ? result : 'Some thing went wrong',
+    });
+  }),
+
+  updateCart: asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { pid, quantity, color } = req.body;
+    if (!pid || !quantity || !color) throw new Error('Missing inputs');
+
+    const user = await User.findById(_id).select('cart');
+    const alreadyProduct = user?.cart.find(
+      (el) => el.product.toString() === pid
+    );
+
+    if (alreadyProduct && alreadyProduct.color === color) {
+      const result = await User.updateOne(
+        { cart: { $elemMatch: alreadyProduct } },
+        { $set: { 'cart.$.quantity': quantity } },
+        { new: true }
+      );
+
+      res.status(200).json({
+        success: result ? true : false,
+        message: result ? user : 'Cannt update cart',
+      });
+    } else {
+      const result = await User.findByIdAndUpdate(
+        _id,
+        { $push: { cart: { product: pid, quantity, color } } },
+        {
+          new: true,
+        }
+      );
+
+      res.status(200).json({
+        success: result ? true : false,
+        message: result ? user : 'Cannt update cart',
+      });
+    }
+  }),
 });

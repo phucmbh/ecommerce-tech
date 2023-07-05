@@ -154,15 +154,13 @@ var that = (module.exports = {
   }),
 
   uploadProductImage: asyncHandler(async (req, res) => {
-    try {
-      const results = await cloudinary.uploadSingle(req.file);
-      return res.json({ status: 'success', results });
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({
-        success: false,
-        message: err,
-      });
-    }
+    const { pid } = req.params;
+    if (!req.files) throw new Error('Missing files');
+    const arrImage = await cloudinary.uploadMultiple(req.files);
+    const product = await Product.findByIdAndUpdate(pid, {
+      $push: { images: { $each: arrImage.map((i) => i.url) } },
+    });
+
+    return res.status(200).json({ status: product ? true : false, product });
   }),
 });

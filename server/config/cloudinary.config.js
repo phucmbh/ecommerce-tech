@@ -13,7 +13,7 @@ var self = (module.exports = {
     return new Promise((resolve) => {
       cloudinary.uploader
         .upload(file.path, {
-          folder: 'single',
+          folder: 'cuahangdientu',
           use_filename: true,
         })
         .then((result) => {

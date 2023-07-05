@@ -1,6 +1,6 @@
 const Blog = require('../models/blog');
 const asyncHandler = require('express-async-handler');
-
+const cloudinary = require('../config/cloudinary.config');
 var that = (module.exports = {
   createBlog: asyncHandler(async (req, res) => {
     const { title, description, category } = req.body;
@@ -159,5 +159,18 @@ var that = (module.exports = {
       success: dislikedBlog ? true : false,
       blog: dislikedBlog ? dislikedBlog : 'Cannot like blog',
     });
+  }),
+
+  uploadBlogImage: asyncHandler(async (req, res) => {
+    const { bid } = req.params;
+    if (!req.file) throw new Error('Missing file');
+    const image = await cloudinary.uploadSingle(req.file);
+    const product = await Blog.findByIdAndUpdate(
+      bid,
+      { image: image.url },
+      { new: true }
+    );
+
+    return res.status(200).json({ status: product ? true : false, product });
   }),
 });

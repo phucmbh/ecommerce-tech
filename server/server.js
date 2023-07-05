@@ -1,20 +1,18 @@
 const express = require('express');
 require('dotenv').config();
-const dbConect = require('./config/dbconnect');
+const dbConect = require('./config/database.config');
 const initRouters = require('./routes');
 const cookieParser = require('cookie-parser');
-
-
 
 const app = express();
 const port = process.env.PORT || 2606;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 dbConect();
 
-initRouters(app)
+initRouters(app);
 app.listen(port, () => {
   console.log('Server listening on port ' + port);
 });
