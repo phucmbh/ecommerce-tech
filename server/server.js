@@ -1,18 +1,8 @@
-const express = require('express');
 require('dotenv').config();
-const dbConect = require('./config/database.config');
-const initRouters = require('./routes');
-const cookieParser = require('cookie-parser');
+const app = require('./src/app');
 
-const app = express();
-const port = process.env.PORT || 2606;
+const { PORT } = process.env;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-dbConect();
-
-initRouters(app);
-app.listen(port, () => {
-  console.log('Server listening on port ' + port);
+app.listen(PORT, () => {
+  console.log(`WSV start with port ${PORT}`);
 });

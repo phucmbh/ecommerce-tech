@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ctrls = require('../controllers/producCategory');
+const ctrls = require('../controllers/produc.category.controller');
 const { verifyAccessToken, isAdmin } = require('../middlewares/verifyToken');
 
 router.post('/', [verifyAccessToken, isAdmin], ctrls.createCategory);

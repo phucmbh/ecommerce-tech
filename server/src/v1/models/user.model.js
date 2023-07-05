@@ -30,13 +30,15 @@ var userSchema = new mongoose.Schema(
       type: String,
       default: 'user',
     },
-    cart: {
-      type: Array,
-      defautl: [],
-    },
+    cart: [
+      {
+        product: { type: mongoose.Types.ObjectId, ref: 'Product' },
+        quantity: Number,
+        color: String,
+      },
+    ],
     address: {
-      type: Array,
-      default: [],
+      type: String,
     },
     wishList: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
     isBlocked: {

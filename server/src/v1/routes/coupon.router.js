@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ctrls = require('../controllers/coupon');
+const ctrls = require('../controllers/coupon.controller');
 const { verifyAccessToken, isAdmin } = require('../middlewares/verifyToken');
 
 router.post('/', [verifyAccessToken, isAdmin], ctrls.createCoupon);

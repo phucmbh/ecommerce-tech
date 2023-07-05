@@ -1,6 +1,6 @@
-const Blog = require('../models/blog');
+const Blog = require('../models/blog.model');
 const asyncHandler = require('express-async-handler');
-const cloudinary = require('../config/cloudinary.config');
+const cloudinary = require('../configs/cloudinary.config');
 var that = (module.exports = {
   createBlog: asyncHandler(async (req, res) => {
     const { title, description, category } = req.body;

@@ -1,4 +1,4 @@
-const Brand = require('../models/brand');
+const Brand = require('../models/brand.model');
 const asyncHandler = require('express-async-handler');
 
 var that = (module.exports = {

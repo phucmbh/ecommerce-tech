@@ -1,12 +1,12 @@
 const { notFound, errHandler } = require('../middlewares/errHandle');
-const userRouter = require('./user');
-const productRotuer = require('./product');
-const productCategoryRotuer = require('./productCategory');
-const blogCategoryRotuer = require('./blogCategory');
-const blogRotuer = require('./blog');
-const brandRotuer = require('./brand');
-const couponRotuer = require('./coupon');
-const orderRotuer = require('./order');
+const userRouter = require('./user.router');
+const productRotuer = require('./product.router');
+const productCategoryRotuer = require('./product.category.router');
+const blogCategoryRotuer = require('./blog.category.router');
+const blogRotuer = require('./blog.router');
+const brandRotuer = require('./brand.router');
+const couponRotuer = require('./coupon.router');
+const orderRotuer = require('./order.router');
 
 const initRouters = (app) => {
   app.use('/api/user', userRouter);

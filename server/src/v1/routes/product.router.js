@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const ctrls = require('../controllers/product');
-const upload = require('../config/multer.config');
+const ctrls = require('../controllers/product.controller');
+const upload = require('../configs/multer.config');
 const { verifyAccessToken, isAdmin } = require('../middlewares/verifyToken');
 
 router.post('/', [verifyAccessToken, isAdmin], ctrls.createProduct);

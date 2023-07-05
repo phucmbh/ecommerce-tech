@@ -1,4 +1,4 @@
-const ProductCategory = require('../models/productCategory');
+const ProductCategory = require('../models/product.category.model');
 const asyncHandler = require('express-async-handler');
 
 var that = (module.exports = {

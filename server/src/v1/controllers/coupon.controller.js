@@ -1,4 +1,4 @@
-const Coupon = require('../models/coupon');
+const Coupon = require('../models/coupon.model');
 const asyncHandler = require('express-async-handler');
 
 var that = (module.exports = {

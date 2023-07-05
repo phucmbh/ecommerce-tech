@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const Product = require('../models/product.model');
 const asyncHandler = require('express-async-handler');
 const slugify = require('slugify');
-const cloudinary = require('../config/cloudinary.config');
+const cloudinary = require('../configs/cloudinary.config');
 
 var that = (module.exports = {
   createProduct: asyncHandler(async (req, res) => {

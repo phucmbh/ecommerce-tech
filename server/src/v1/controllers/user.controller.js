@@ -5,7 +5,7 @@ const {
   generateRefreshToken,
 } = require('../middlewares/jwt');
 const { JWT_SECRET_KEY } = process.env;
-const User = require('../models/user');
+const User = require('../models/user.model');
 const asyncHandler = require('express-async-handler');
 const sendMail = require('../utils/sendMail');
 
