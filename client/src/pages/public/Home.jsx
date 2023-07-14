@@ -1,9 +1,20 @@
 import React from 'react'
+import { Banner, Sidebar } from '../../components'
+
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <div className="w-main flex">
+      <div className=" flex flex-col gap-5 w-[20%] flex-auto">
+        <Sidebar />
+        <span>Deal daily</span>
+      </div>
+      <div className=" flex flex-col gap-5 w-[80%] flex-auto pl-5">
+        <Banner />
+        <span>Best seller</span>
+      </div>
+    </div>
+  );
 }
 
 export default Home
