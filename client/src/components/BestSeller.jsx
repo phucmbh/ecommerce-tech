@@ -34,9 +34,9 @@ const BestSeller = () => {
       apiGetProducts({ sort: '-createdAt' }),
     ])
       .then(([listBestSellers, listNewProducts]) => {
-        setBestSellers(listBestSellers.products);
-        setNewProducts(listNewProducts.products);
-        setProducts(listBestSellers.products);
+        setBestSellers(listBestSellers?.products);
+        setNewProducts(listNewProducts?.products);
+        setProducts(listBestSellers?.products);
       })
       .catch((err) => console.error(err));
   };

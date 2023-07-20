@@ -1,5 +1,5 @@
 import React from 'react';
-import { Banner, Sidebar } from '../../components';
+import { Banner, FeaturedProducts, Sidebar } from '../../components';
 import BestSeller from '../../components/BestSeller';
 import DealDaily from './../../components/DealDaily';
 
@@ -15,6 +15,9 @@ function Home() {
           <Banner />
           <BestSeller />
         </div>
+      </div>
+      <div className="my-8  w-full">
+        <FeaturedProducts />
       </div>
 
       <div className="w-full h-[1000px]"></div>

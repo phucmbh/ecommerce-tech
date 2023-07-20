@@ -47,12 +47,12 @@ function createExtraReducers() {
 
       builder.addCase(fulfilled, (state, action) => {
         state.isLoading = false;
-        state.categories = action.payload.allCategories;
+        state.categories = action.payload?.allCategories;
       });
 
       builder.addCase(rejected, (state, action) => {
         state.isLoading = false;
-        state.errorMessage = action.payload.message;
+        state.errorMessage = action.payload?.message;
       });
     }
   };
