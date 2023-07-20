@@ -1,0 +1,30 @@
+button.slick-next {
+  right: 80px;
+  z-index: 10;
+}
+button.slick-prev {
+  left: 20px;
+  z-index: 10;
+}
+button.slick-next::before {
+  color: gray;
+  content: '\276F';
+  background-color: rgb(214, 214, 214);
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button.slick-prev::before {
+  color: gray;
+  content: '\276E';
+  background-color: rgb(214, 214, 214);
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from '/assets/logo.png';
-import icons from '../utils/icon';
+import logo from '/images/logo.png';
+import icons from '../utils/icons.util';
 import { Link } from 'react-router-dom';
-import path from '../utils/path';
+import path from '../utils/path.util';
 
 const { RiPhoneFill, MdEmail, BsFillCartFill, FaUserCircle } = icons;
 const Header = () => {

@@ -1,6 +1,6 @@
-import React from 'react'
-import { Banner, Sidebar } from '../../components'
-
+import React from 'react';
+import { Banner, Sidebar } from '../../components';
+import BestSeller from '../../components/BestSeller';
 
 function Home() {
   return (
@@ -11,10 +11,11 @@ function Home() {
       </div>
       <div className=" flex flex-col gap-5 w-[80%] flex-auto pl-5">
         <Banner />
-        <span>Best seller</span>
+        <BestSeller />
+        <div className="w-full h-[1000px]"></div>
       </div>
     </div>
   );
 }
 
-export default Home
+export default Home;

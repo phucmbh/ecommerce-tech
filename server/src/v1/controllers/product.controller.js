@@ -93,9 +93,7 @@ var that = (module.exports = {
       res.status(200).json({
         status: 'success',
         results: products.length,
-        data: {
-          products,
-        },
+        products,
       });
     } catch (error) {
       return res.status(200).json({

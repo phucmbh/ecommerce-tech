@@ -1,1 +1,2 @@
-export * from './app';
+export * from './categories.api';
+export * from './products.api';

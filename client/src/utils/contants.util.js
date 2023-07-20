@@ -1,4 +1,4 @@
-import path from './path';
+import path from './path.util';
 
 export const navigation = [
   {

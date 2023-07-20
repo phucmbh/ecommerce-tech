@@ -39,6 +39,15 @@ var productSchema = new mongoose.Schema(
     },
     images: {
       type: Array,
+      default: [
+        'https://cdn.tgdd.vn/Products/Images/44/231244/grey-1-org.jpg',
+        'https://cdn.tgdd.vn/Products/Images/44/304028/asus-vivobook-15-oled-a1505va-i5-l1052w-thumb-600x600.jpg',
+      ],
+    },
+    thumb: {
+      type: String,
+      default:
+        'https://cdn.tgdd.vn/Products/Images/44/307786/acer-aspire-7-gaming-a715-76g-5132-i5-nhqmesv002-thumb-600x600.jpg',
     },
     color: {
       type: String,

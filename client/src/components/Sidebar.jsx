@@ -5,13 +5,12 @@ import { categoryActions } from '../_store/store';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((x) => x.categories);
+  const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
     dispatch(categoryActions.getCategories());
   }, []);
 
-  console.log(categories);
   return (
     <div className="flex flex-col border">
       {categories?.map((el) => (
