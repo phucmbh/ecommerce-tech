@@ -1,7 +1,13 @@
 import React from 'react';
-import { Banner, FeaturedProducts, Sidebar } from '../../components';
-import BestSeller from '../../components/BestSeller';
-import DealDaily from './../../components/DealDaily';
+import {
+  Banner,
+  FeaturedProducts,
+  BestSeller,
+  DealDaily,
+  NewArrivals,
+  Sidebar,
+  HotCollections,
+} from '../../components';
 
 function Home() {
   return (
@@ -9,16 +15,17 @@ function Home() {
       <div className="w-main flex">
         <div className=" flex flex-col gap-5 w-[25%] flex-auto">
           <Sidebar />
-          <DealDaily />
+          {/* <DealDaily /> */}
         </div>
         <div className=" flex flex-col gap-5 w-[75%] flex-auto pl-5">
           <Banner />
           <BestSeller />
         </div>
       </div>
-      <div className="my-8  w-full">
-        <FeaturedProducts />
-      </div>
+
+      <FeaturedProducts />
+      <NewArrivals />
+      <HotCollections />
 
       <div className="w-full h-[1000px]"></div>
     </>

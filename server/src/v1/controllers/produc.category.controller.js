@@ -14,7 +14,9 @@ var that = (module.exports = {
   }),
 
   getAllCategories: asyncHandler(async (req, res) => {
-    const result = await ProductCategory.find().select('_id title slug icon');
+    const result = await ProductCategory.find().select(
+      '_id title slug icon image brand'
+    );
     return res.json({
       success: result ? true : false,
       allCategories: result ? result : 'Cannot create category',

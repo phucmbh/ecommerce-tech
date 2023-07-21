@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import '../assets/styles/BestSeller.css';
 import Product from './Product';
 
+
 const tabs = [
   { id: 1, name: 'best sellers' },
   { id: 2, name: 'new arrivals' },
@@ -25,8 +26,9 @@ const BestSeller = () => {
   const [bestSellers, setBestSellers] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
   const [activedTab, setActivedTab] = useState(1);
-  const [products, setProducts] = useState(null);
+  const [listProducts, setListProducts] = useState(null);
   const [isNew, setIsNew] = useState(true);
+
 
   const fectchProducts = async () => {
     await Promise.all([
@@ -36,21 +38,22 @@ const BestSeller = () => {
       .then(([listBestSellers, listNewProducts]) => {
         setBestSellers(listBestSellers?.products);
         setNewProducts(listNewProducts?.products);
-        setProducts(listBestSellers?.products);
+        setListProducts(listBestSellers?.products);
       })
       .catch((err) => console.error(err));
   };
   useEffect(() => {
+    
     fectchProducts();
   }, []);
 
   useEffect(() => {
     if (activedTab === 1) {
-      setProducts(bestSellers);
+      setListProducts(bestSellers);
       setIsNew(true);
     }
     if (activedTab === 2) {
-      setProducts(newProducts);
+      setListProducts(newProducts);
       setIsNew(false);
     }
   }, [activedTab]);
@@ -74,7 +77,7 @@ const BestSeller = () => {
       </div>
       <div className="mt-4 mx-[-10px]">
         <Slider {...settings}>
-          {products?.map((p) => (
+          {listProducts?.map((p) => (
             <Product key={p._id} productData={p} isNew={isNew} />
           ))}
         </Slider>
