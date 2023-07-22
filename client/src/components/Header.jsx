@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import logo from '/images/logo.png';
 import icons from '../utils/icons.util';
 import { Link } from 'react-router-dom';
@@ -42,4 +42,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

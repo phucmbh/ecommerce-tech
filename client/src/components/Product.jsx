@@ -5,6 +5,8 @@ import newImage from '../assets/images/new.png';
 import trendingImage from '../assets/images/trending.png';
 import { SelectOption } from './';
 import icons from '../utils/icons.util';
+import { Link } from 'react-router-dom';
+import path from '../utils/path.util';
 
 const { BiMenu, AiFillEye, AiFillHeart } = icons;
 
@@ -13,7 +15,8 @@ function Product({ productData, isNew }) {
 
   return (
     <div className="w-full text-base px-[10px]  ">
-      <div
+      <Link
+        to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
         className="w-full  p-[15px] border flex flex-col items-center"
         onMouseEnter={(e) => setIsShowOption(true)}
         onMouseLeave={(e) => setIsShowOption(false)}
@@ -47,7 +50,7 @@ function Product({ productData, isNew }) {
           </span>
           <span>{`${formatMoney(productData?.price)} VND`}</span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
