@@ -63,7 +63,7 @@ const Footer = () => {
           <span className="opacity-70">Typography</span>
           <span className="opacity-70">Gallery</span>
           <span className="opacity-70">Store Location</span>
-          <span className="opacity-70">Today&apos;s Deals</span>
+          <span className="opacity-70">{`Today's`} Deals</span>
           <span className="opacity-70">Contact</span>
         </div>
         <div className="flex-1 flex flex-col gap-2">
