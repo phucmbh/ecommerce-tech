@@ -5,8 +5,12 @@ const initRouters = require('./v1/routes/index.router');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-//inits database
-database.initMongodb();
+//init dbs
+
+// database.initMongodb();
+// database.connectRedis();
+require('./v1/databases/init.mongodb');
+require('./v1/databases/init.redis');
 
 //middlewares
 app.use(

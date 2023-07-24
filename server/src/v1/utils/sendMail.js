@@ -1,10 +1,9 @@
 const nodemailer = require('nodemailer');
 const asyncHandler = require('express-async-handler');
 
-const sendMail = asyncHandler(async (email, token) => {
-  const { EMAIL_NAME, EMAIL_PASSWORD, URL_CLIENT } = process.env;
-  const html = `Please click in link below to change your password. Link will be expired after 15 minutes. <a href="${URL_CLIENT}/api/user/reset-password/${token}">Click here</a>`;
-  
+const sendMail = asyncHandler(async ({ subject, url, reason, email }) => {
+  const { EMAIL_NAME, EMAIL_PASSWORD } = process.env;
+  const html = `Please click in link below to ${reason}. Link will be expired after 15 minutes. <a href=${url}>Click here</a>`;
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -18,7 +17,7 @@ const sendMail = asyncHandler(async (email, token) => {
   const info = await transporter.sendMail({
     from: '"danielshop" <no-relply@danielshop.com>',
     to: email,
-    subject: 'Forgot Password ✔',
+    subject: `${subject}`,
     html: html,
   });
 

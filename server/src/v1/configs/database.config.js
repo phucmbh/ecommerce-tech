@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const redis = require('redis');
 
 module.exports = {
   initMongodb: () => {
@@ -16,5 +17,20 @@ module.exports = {
 
     // get mongodb-shell friendly output (ISODate)
     // mongoose.set('debug', { shell: true });
+  },
+
+  connectRedis: async () => {
+    const client = redis.createClient({
+      url: process.env.REDIS_URI,
+    });
+    client.on('error', (error) => console.error(`Error : ${error}`));
+    await client.connect();
+
+    client.on('ready', () => {
+      console.log('Connected!');
+    });
+    await client.set('key', 'value');
+    console.log('hmm');
+    return client;
   },
 };

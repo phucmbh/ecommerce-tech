@@ -12,7 +12,6 @@ const HotCollections = () => {
   useEffect(() => {
     dispatch(categoryActions.getCategories());
   }, []);
-  console.log(categories);
 
   return (
     <div className="my-8  w-full">

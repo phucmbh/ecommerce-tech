@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { formatMoney, renderStarFromNumber } from '../utils/helper';
 import newImage from '../assets/images/new.png';
 import trendingImage from '../assets/images/trending.png';
@@ -54,10 +53,5 @@ function Product({ productData, isNew }) {
     </div>
   );
 }
-
-Product.propTypes = {
-  productData: PropTypes.object,
-  isNew: PropTypes.bool,
-};
 
 export default Product;

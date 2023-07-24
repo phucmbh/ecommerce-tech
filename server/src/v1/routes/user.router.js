@@ -4,6 +4,7 @@ const ctrls = require('../controllers/user.controller');
 const { verifyAccessToken, isAdmin } = require('../middlewares/verifyToken');
 
 router.post('/register', ctrls.register);
+router.get('/verifyemail/:token', ctrls.verifyEmail);
 router.post('/login', ctrls.login);
 
 router.post('/refreshtoken', ctrls.refreshAccessToken);

@@ -5,4 +5,5 @@ export { default as Product } from './Product';
 export { default as Blog } from './Blog';
 export { default as Service } from './Service';
 export { default as FAQ } from './FAQ';
-export { default as DetailProduct } from './DetailProduct';
+export { default as ProductDetail } from './ProductDetail';
+export { default as VerifyEmail } from './VerifyEmail';

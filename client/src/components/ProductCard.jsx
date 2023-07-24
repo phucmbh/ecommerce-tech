@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { formatMoney, renderStarFromNumber } from '../utils/helper';
 const ProductCard = ({ title, price, thumb, totalRatings }) => {
   return (
@@ -17,14 +16,6 @@ const ProductCard = ({ title, price, thumb, totalRatings }) => {
       </div>
     </div>
   );
-};
-
-ProductCard.propTypes = {
-  image: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.number,
-  thumb: PropTypes.string,
-  totalRatings: PropTypes.number,
 };
 
 export default ProductCard;

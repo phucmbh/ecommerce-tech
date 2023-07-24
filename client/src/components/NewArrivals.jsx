@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 // import '../assets/styles/BestSeller.css';
 import Product from './Product';
 import { useDispatch, useSelector } from 'react-redux';
-import { productActions } from '../_store/store';
+import { productActions } from '../_store';
 
 const tabs = [
   { id: 1, name: 'best sellers' },
@@ -24,16 +24,12 @@ const settings = {
 };
 
 const NewArrivals = () => {
-
-    const dispatch = useDispatch();
-    const { products } = useSelector((state) => state.products);
-
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(productActions.getProducts());
   }, []);
-
-
 
   return (
     <div className="my-8  w-full">

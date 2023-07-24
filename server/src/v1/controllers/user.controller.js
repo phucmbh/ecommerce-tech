@@ -4,30 +4,66 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require('../middlewares/jwt');
-const { JWT_SECRET_KEY } = process.env;
+const { JWT_SECRET_KEY, URL_CLIENT } = process.env;
 const User = require('../models/user.model');
 const asyncHandler = require('express-async-handler');
 const sendMail = require('../utils/sendMail');
+const client = require('../databases/init.redis');
 
 var that = (module.exports = {
   register: asyncHandler(async (req, res) => {
-    const { email, password, firstName, lastName } = req.body;
-    if (!email || !password || !firstName || !lastName)
+    const { email, password, firstName, lastName, mobile } = req.body;
+    if (!email || !password || !firstName || !lastName || !mobile)
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: 'Missing inputs',
       });
-
     const user = await User.findOne({ email });
 
     if (user) throw new Error('User already exists');
     else {
-      const newUser = await User.create(req.body);
+      const FIFTEEN_MINUTES = 60 * 15;
+
+      const token = crypto.randomBytes(128).toString('hex');
+      await client.setEx(
+        `etoken:${token}`,
+        FIFTEEN_MINUTES,
+        JSON.stringify({ ...req.body })
+      );
+
+      console.log(`${URL_CLIENT}/user/verifyemail/${token}`);
+
+      await sendMail({
+        subject: 'Verify email',
+        url: `${URL_CLIENT}/user/verifyemail/${token}`,
+        reason: 'verify your email address',
+        email,
+      });
       return res.status(200).json({
-        sucess: newUser ? true : false,
-        message: newUser ? 'Register is successfully' : 'Something was wrong',
+        success: true,
+        message: 'Please check your email to active your account',
       });
     }
+  }),
+
+  verifyEmail: asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    if (!token) return res.redirect(`${URL_CLIENT}/verifyemail/failed`);
+
+    const user = JSON.parse(await client.get(`etoken:${token}`));
+
+    if (user) {
+      await User.create(user);
+      return res.status(200).json({
+        success: true,
+        message: 'Verify successfully. Let login',
+      });
+    }
+
+    return res.status(200).json({
+      success: false,
+      message: 'Verify failed !',
+    });
   }),
 
   //Check password, create accessToken, create refreshToken - update in db - store in cookie
@@ -35,7 +71,7 @@ var that = (module.exports = {
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: 'Missing inputs',
       });
 
@@ -57,13 +93,16 @@ var that = (module.exports = {
         httpOnly: true,
       });
       return res.status(200).json({
-        sucess: true,
+        success: true,
         accessToken,
         userData,
       });
-    } else {
-      throw new Error('Invalid credentials');
     }
+
+    return res.status(400).json({
+      success: false,
+      message: 'Login failed !',
+    });
   }),
 
   // Delete refresh token in db and cookies
@@ -121,8 +160,13 @@ var that = (module.exports = {
     if (!user) throw new Error('User not found');
     const resetToken = user.createPasswordChangeToken();
     await user.save();
-
-    const result = await sendMail(email, resetToken);
+    const { URL_CLIENT } = process.env;
+    const result = await sendMail({
+      email,
+      subject: 'Forgot Password',
+      url: `${URL_CLIENT}/api/user/forgotpassword`,
+      reason: 'change your password',
+    });
     return res.status(200).json({
       success: true,
       result,

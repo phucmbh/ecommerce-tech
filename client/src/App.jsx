@@ -4,10 +4,11 @@ import {
   Login,
   Home,
   FAQ,
-  DetailProduct,
+  ProductDetail,
   Service,
   Blog,
   Product,
+  VerifyEmail,
 } from './pages/public';
 import path from './utils/path.util';
 
@@ -21,13 +22,14 @@ function App() {
           <Route path={path.BLOGS} element={<Blog />} />
           <Route
             path={path.DETAIL_PRODUCT_PID_TITLE}
-            element={<DetailProduct />}
+            element={<ProductDetail />}
           />
           <Route path={path.FAQ} element={<FAQ />} />
           <Route path={path.OUR_SERVICES} element={<Service />} />
           <Route path={path.PRODUCTS} element={<Product />} />
         </Route>
         <Route path={path.LOGIN} element={<Login />} />
+        <Route path={path.VERIFY_EMAIL} element={<VerifyEmail />} />
       </Routes>
     </div>
   );

@@ -9,6 +9,7 @@ const path = {
   FAQ: 'faqs',
   DETAIL_PRODUCT_PID_TITLE: 'product/:pid/:title',
   DETAIL_PRODUCT: 'product',
+  VERIFY_EMAIL: 'user/verifyemail/:token',
 };
 
 export default path;
