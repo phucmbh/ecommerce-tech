@@ -9,10 +9,9 @@ import Swal from 'sweetalert2';
 import { userActions } from '../../_store';
 import { useDispatch } from 'react-redux';
 
-function Login() {
+const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
   const [isRegister, setIsRegister] = useState(false);
   const [payload, setPayload] = useState({
     firstName: '',
@@ -47,7 +46,6 @@ function Login() {
       }
     } else {
       const response = await apiLogin(data);
-      console.log(response);
       if (response.success) {
         dispatch(
           userActions.login({
@@ -129,7 +127,7 @@ function Login() {
                   </div>
                 </div>
                 <Link
-                  to={'/'}
+                  to={`/${path.FORGOT_PASSWORD}`}
                   className="font-medium text-sm text-black hover:underline"
                 >
                   Forgot Password ?
@@ -168,6 +166,6 @@ function Login() {
       </div>
     </section>
   );
-}
+};
 
 export default Login;

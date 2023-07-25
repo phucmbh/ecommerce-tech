@@ -1,4 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import {
   Public,
   Login,
@@ -9,6 +11,8 @@ import {
   Blog,
   Product,
   VerifyEmail,
+  ForgotPassword,
+  ResetPassword,
 } from './pages/public';
 import path from './utils/path.util';
 
@@ -30,7 +34,23 @@ function App() {
         </Route>
         <Route path={path.LOGIN} element={<Login />} />
         <Route path={path.VERIFY_EMAIL} element={<VerifyEmail />} />
+        <Route path={path.FORGOT_PASSWORD} element={<ForgotPassword />} />
+        <Route path={path.RESET_PASSWORD} element={<ResetPassword />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
+      <ToastContainer />
     </div>
   );
 }

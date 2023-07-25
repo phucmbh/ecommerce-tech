@@ -4,7 +4,8 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require('../middlewares/jwt');
-const { JWT_SECRET_KEY, URL_CLIENT } = process.env;
+const { JWT_SECRET_KEY, TOKEN_SECRET_KEY, URL_CLIENT, URL_SERVER } =
+  process.env;
 const User = require('../models/user.model');
 const asyncHandler = require('express-async-handler');
 const sendMail = require('../utils/sendMail');
@@ -154,22 +155,26 @@ var that = (module.exports = {
   // Check token, change password
 
   forgotPassword: asyncHandler(async (req, res) => {
-    const { email } = req.query;
-    if (!email) throw new Error('Missing email');
+    const { email } = req.body;
+    if (!email) throw new Error('Please enter your email');
     const user = await User.findOne({ email });
-    if (!user) throw new Error('User not found');
-    const resetToken = user.createPasswordChangeToken();
+    if (!user) throw new Error('Email does not exist');
+
+    const token = user.createPasswordChangeToken();
     await user.save();
-    const { URL_CLIENT } = process.env;
-    const result = await sendMail({
-      email,
-      subject: 'Forgot Password',
-      url: `${URL_CLIENT}/api/user/forgotpassword`,
-      reason: 'change your password',
-    });
+
+    // sendMail({
+    //   email,
+    //   subject: 'Reset Password',
+    //   url: `${URL_CLIENT}/user/reset-password/${user.passwordResetToken}`,
+    //   reason: 'change your password',
+    // });
+
+    console.log(`${URL_CLIENT}/user/reset-password/${token}`);
+
     return res.status(200).json({
       success: true,
-      result,
+      message: 'Please check your email',
     });
   }),
 
@@ -180,24 +185,22 @@ var that = (module.exports = {
     if (!password || !token) throw new Error('Missing password or token');
 
     const passwordResetToken = crypto
-      .createHash('sha256')
+      .createHmac('sha256', TOKEN_SECRET_KEY)
       .update(token)
       .digest('hex');
 
-    const user = await User.findOne({
-      passwordResetToken,
-      passwordResetExpire: { $gt: Date.now() },
-    });
-    if (!user) throw new Error('Invalid reset token in reset password');
+    const user = await User.findOne({ passwordResetToken });
+    if (!user) throw new Error('Invalid token in reset password');
+    if (user.passwordResetExpire < Date.now())
+      throw new Error('Token has expired');
     user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpire = undefined;
     user.passwordChangedAt = Date.now();
     await user.save();
-    console.log('done');
     return res.status(200).json({
       success: true,
-      message: user,
+      message: 'Change password successfully',
     });
   }),
 

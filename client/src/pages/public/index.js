@@ -7,3 +7,5 @@ export { default as Service } from './Service';
 export { default as FAQ } from './FAQ';
 export { default as ProductDetail } from './ProductDetail';
 export { default as VerifyEmail } from './VerifyEmail';
+export { default as ForgotPassword } from './ForgotPassword';
+export { default as ResetPassword } from './ResetPassword';
