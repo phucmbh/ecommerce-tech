@@ -7,6 +7,19 @@ export const apiRegister = (data) =>
     data,
   });
 
+export const apiVerifyEmail = (token) =>
+  axiosInstance({
+    url: `/user/verify-email/${token}`,
+    method: 'GET',
+  });
+
+export const apiLogin = (data) =>
+  axiosInstance({
+    url: '/user/login',
+    method: 'POST',
+    data,
+  });
+
 export const apiForgotPassword = (email) =>
   axiosInstance({
     url: '/user/forgot-password',
@@ -21,15 +34,8 @@ export const apiResetPassword = (data) =>
     data,
   });
 
-export const apiVerifyEmail = (token) =>
+export const apiGetUserCurrent = () =>
   axiosInstance({
-    url: `/user/verify-email/${token}`,
+    url: '/user/current',
     method: 'GET',
-  });
-
-export const apiLogin = (data) =>
-  axiosInstance({
-    url: '/user/login',
-    method: 'POST',
-    data,
   });

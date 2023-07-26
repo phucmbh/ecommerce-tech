@@ -6,7 +6,7 @@ const activeStyle = 'pr-12 hover:text-main text-main';
 
 const Navigation = () => {
   return (
-    <div className="border-y w-main h-[48px] py-2 mb-6 text-sm flex items-center">
+    <div className="border-y w-main h-[48px] py-2 text-sm flex items-center">
       {navigation.map((el) => (
         <NavLink
           to={el.path}

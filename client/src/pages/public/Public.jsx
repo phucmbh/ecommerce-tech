@@ -14,7 +14,7 @@ function Public() {
       <HeaderTop />
       <Header />
       <Navigation />
-      <div className="w-main">
+      <div className="w-full">
         <Outlet />
       </div>
       <FooterTop />

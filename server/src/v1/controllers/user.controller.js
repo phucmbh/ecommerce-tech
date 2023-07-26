@@ -212,7 +212,7 @@ var that = (module.exports = {
     );
     return res.status(200).json({
       success: user ? true : false,
-      resutl: user ? user : 'User is not found',
+      user: user ? user : 'User is not found',
     });
   }),
 

@@ -15,7 +15,7 @@ function Product({ productData, isNew }) {
   return (
     <div className="w-full text-base px-[10px]  ">
       <Link
-        to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
+        to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.slug}`}
         className="w-full  p-[15px] border flex flex-col items-center"
         onMouseEnter={(e) => setIsShowOption(true)}
         onMouseLeave={(e) => setIsShowOption(false)}

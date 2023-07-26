@@ -1,18 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { userActions } from '../../_store';
 import logo from '/images/logo.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import path from '../../utils/path.util';
 import { Button, InputField } from '../../components';
 import { apiLogin, apiRegister } from './../../apis/users.api';
-import Swal from 'sweetalert2';
-
-import { userActions } from '../../_store';
-import { useDispatch } from 'react-redux';
+import { validate } from '../../utils/helper';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isRegister, setIsRegister] = useState(false);
+  const [invalidFields, setInvalidFields] = useState([]);
+
   const [payload, setPayload] = useState({
     firstName: '',
     lastName: '',
@@ -31,32 +34,44 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+    resetPayload();
+  }, [isRegister]);
+
+  //SUBMIT
   const handleSubmit = useCallback(async () => {
     const { firstName, lastName, mobile, ...data } = payload;
-    if (isRegister) {
-      const response = await apiRegister(payload);
-      console.log(response);
-      if (response.success) {
-        new Swal('Congratulations', response.message, 'success').then(() => {
-          setIsRegister(false);
-          resetPayload();
-        });
+
+    const invalids = isRegister
+      ? validate(payload, setInvalidFields)
+      : validate(data, setInvalidFields);
+
+    if (invalids === 0) {
+      if (isRegister) {
+        const response = await apiRegister(payload);
+        console.log(response);
+        if (response.success) {
+          new Swal('Congratulations', response.message, 'success').then(() => {
+            setIsRegister(false);
+            resetPayload();
+          });
+        } else {
+          new Swal('Oops!', response.message, 'error');
+        }
       } else {
-        new Swal('Oops!', response.message, 'error');
-      }
-    } else {
-      const response = await apiLogin(data);
-      if (response.success) {
-        dispatch(
-          userActions.login({
-            isLoggedIn: true,
-            token: response.accessToken,
-            userData: response.userData,
-          })
-        );
-        navigate(`/${path.HOME}`);
-      } else {
-        new Swal('Oops!', response.message, 'error');
+        const response = await apiLogin(data);
+        if (response.success) {
+          dispatch(
+            userActions.login({
+              isLoggedIn: true,
+              token: response.accessToken,
+              userData: response.userData,
+            })
+          );
+          navigate(`/${path.HOME}`);
+        } else {
+          new Swal('Oops!', response.message, 'error');
+        }
       }
     }
   }, [payload, isRegister]);
@@ -81,12 +96,16 @@ const Login = () => {
                       setValue={setPayload}
                       nameKey="firstName"
                       placeholder="First Name"
+                      invalidFields={invalidFields}
+                      setInvalidFields={setInvalidFields}
                     />
                     <InputField
                       value={payload.lastName}
                       setValue={setPayload}
                       nameKey="lastName"
                       placeholder="Last Name"
+                      invalidFields={invalidFields}
+                      setInvalidFields={setInvalidFields}
                     />
                   </div>
                   <InputField
@@ -94,6 +113,8 @@ const Login = () => {
                     setValue={setPayload}
                     nameKey="mobile"
                     placeholder="Mobile Number"
+                    invalidFields={invalidFields}
+                    setInvalidFields={setInvalidFields}
                   />
                 </div>
               )}
@@ -103,6 +124,8 @@ const Login = () => {
                 setValue={setPayload}
                 nameKey="email"
                 placeholder="Email"
+                invalidFields={invalidFields}
+                setInvalidFields={setInvalidFields}
               />
 
               <InputField
@@ -111,6 +134,8 @@ const Login = () => {
                 setValue={setPayload}
                 nameKey="password"
                 placeholder="Password"
+                invalidFields={invalidFields}
+                setInvalidFields={setInvalidFields}
               />
 
               <div className="flex items-center justify-between">

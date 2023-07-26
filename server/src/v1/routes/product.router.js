@@ -7,8 +7,8 @@ router.post('/', [verifyAccessToken, isAdmin], ctrls.createProduct);
 router.get('/', ctrls.getAllProducts);
 router.put('/ratings', verifyAccessToken, ctrls.ratings);
 router.get('/:pid', ctrls.getProduct);
-router.put('/:pid', ctrls.updateProduct);
-router.delete('/:pid', ctrls.deleteProduct);
+router.put('/:pid', [verifyAccessToken, isAdmin], ctrls.updateProduct);
+router.delete('/:pid', [verifyAccessToken, isAdmin], ctrls.deleteProduct);
 router.put(
   '/uploadimage/:pid',
   [verifyAccessToken, isAdmin],

@@ -88,7 +88,7 @@ var that = (module.exports = {
       query.skip(skip).limit(limit);
 
       //EXECUTE QUERY
-      const products = await query;
+      const products = await query.populate('category');
 
       res.status(200).json({
         status: 'success',

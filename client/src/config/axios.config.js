@@ -3,13 +3,21 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URI,
 });
 
+let store;
+
+export const injectStore = (_store) => {
+  store = _store;
+};
+
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
+  (config) => {
+    const token = store.getState().users.token;
+    config.headers.authorization = `Bearer ${token}`;
     return config;
   },
-  function (error) {
+  (error) => {
+    console.log('Axios instance: Error: ' + error);
     // Do something with request error
     return Promise.reject(error);
   }

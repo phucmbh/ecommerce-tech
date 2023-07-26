@@ -6,3 +6,9 @@ export const apiGetProducts = (params) =>
     method: 'GET',
     params,
   });
+
+export const apiGetProduct = (pid) =>
+  axiosInstance({
+    url: '/product/' + pid,
+    method: 'GET',
+  });

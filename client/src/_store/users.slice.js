@@ -20,53 +20,39 @@ export const usersReducer = slice.reducer;
 function createInitialState() {
   return {
     isLoggedIn: false,
-    current: null,
     token: null,
+    user: null,
+    isLoading: false,
   };
 }
 
 function createReducers() {
   return {
     login: (state, action) => {
-      console.log(action);
       state.isLoggedIn = action.payload.isLoggedIn;
-      state.current = action.payload.current;
       state.token = action.payload.token;
+    },
+    logout: (state, action) => {
+      state.isLoggedIn = false;
+      state.token = null;
     },
   };
 }
 
 function createExtraActions() {
   return {
-    getUsers: getUsers(),
+    getCurrentUser: createAsyncThunk(`${name}/getUserCurrent`, async () => {
+      const response = await apis.apiGetUserCurrent();
+      return response.user;
+    }),
   };
-
-  function getUsers() {
-    return createAsyncThunk(`${name}/getUsers`, async () => {
-      return await apis.apiGetUsers();
-    });
-  }
 }
 
 function createExtraReducers() {
   return (builder) => {
-    getUsers();
-    function getUsers() {
-      var { pending, fulfilled, rejected } = extraActions.getUsers;
-
-      builder.addCase(pending, (state) => {
-        state.isLoading = true;
-      });
-
-      builder.addCase(fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.products = action.payload?.products;
-      });
-
-      builder.addCase(rejected, (state, action) => {
-        state.isLoading = false;
-        state.errorMessage = action.payload?.message;
-      });
-    }
+    builder.addCase(extraActions.getCurrentUser.fulfilled, (state, action) => {
+      console.log(action);
+      state.user = action.payload;
+    });
   };
 }

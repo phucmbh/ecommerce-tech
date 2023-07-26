@@ -12,7 +12,7 @@ import {
 
 function Home() {
   return (
-    <div>
+    <div className="w-full flex flex-col items-center mt-[10px]">
       <div className="w-main flex">
         <div className=" flex flex-col gap-5 w-[25%] flex-auto">
           <Sidebar />
@@ -23,11 +23,12 @@ function Home() {
           <BestSeller />
         </div>
       </div>
-
-      <FeaturedProducts />
-      <NewArrivals />
-      <HotCollections />
-      <BlogPosts />
+      <div className="w-main flex flex-col">
+        <FeaturedProducts />
+        <NewArrivals />
+        <HotCollections />
+        <BlogPosts />
+      </div>
     </div>
   );
 }

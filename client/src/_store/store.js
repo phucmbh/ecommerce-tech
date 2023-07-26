@@ -1,26 +1,35 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { categoriesReducer, productsReducer, usersReducer } from './';
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
-import thunk from 'redux-thunk';
-
-const commonConfig = {
-  key: 'shop/user',
-  storage,
-};
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
 const userConfig = {
-  ...commonConfig,
+  key: 'user',
+  storage,
   whitelist: ['isLoggedIn', 'token'],
 };
 
 export const store = configureStore({
   reducer: {
+    users: persistReducer(userConfig, usersReducer),
     categories: categoriesReducer,
     products: productsReducer,
-    users: persistReducer(userConfig, usersReducer),
   },
-  middleware: [thunk],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

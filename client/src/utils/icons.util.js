@@ -21,6 +21,7 @@ import {
   AiFillEye,
   AiFillHeart,
   AiFillInstagram,
+  AiOutlineLogout,
 } from 'react-icons/ai';
 import { BiMenu } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
@@ -38,6 +39,7 @@ const icons = {
   AiFillEye,
   AiFillHeart,
   AiFillInstagram,
+  AiOutlineLogout,
   IoIosArrowForward,
   FaRegMoneyBillAlt,
   FaFacebookF,

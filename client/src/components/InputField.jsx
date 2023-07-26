@@ -19,6 +19,7 @@ const InputField = ({
           {placeholder}
         </label>
       )}
+
       <input
         type={type || 'text'}
         className="bg-white border border-gray-300 text-gray-900 rounded-lg  w-full p-2.5 outline-gray-400"
@@ -27,9 +28,18 @@ const InputField = ({
         onChange={(e) =>
           setValue((prev) => ({ ...prev, [nameKey]: e.target.value }))
         }
+        onFocus={(e) => setInvalidFields([])}
       />
+
+      {invalidFields?.some((el) => el.name === nameKey) && (
+        <small className="text-main text-[15px] ">
+          {invalidFields.find((el) => el.name === nameKey).message}
+        </small>
+      )}
     </div>
   );
 };
+
+//invalidFields [{name: password, message: ...}]
 
 export default InputField;

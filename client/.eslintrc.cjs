@@ -19,5 +19,7 @@ module.exports = {
     'react/jsx-uses-react': 'error',
     'no-unused-vars': 0,
     'react/prop-types': 'off',
+    'no-case-declarations': 'off',
+    'no-useless-escape': 'off',
   },
 };
