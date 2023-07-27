@@ -17,3 +17,5 @@ export { default as FooterTop } from './FooterTop';
 export { default as Footer } from './Footer';
 export { default as InputField } from './InputField';
 export { default as Button } from './Button';
+export { default as ExtraInfor } from './ExtraInfor';
+export { default as SelectQuantity } from './SelectQuantity';

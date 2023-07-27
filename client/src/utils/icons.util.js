@@ -7,6 +7,10 @@ import {
   FaMapMarkerAlt,
   FaLinkedinIn,
   FaFlickr,
+  FaShieldAlt,
+  FaTruck,
+  FaReply,
+  FaPhoneAlt,
 } from 'react-icons/fa';
 import {
   BsFillCartFill,
@@ -15,6 +19,7 @@ import {
   BsStarHalf,
   BsGoogle,
   BsTwitter,
+  BsGiftFill,
 } from 'react-icons/bs';
 import {
   AiFillHome,
@@ -25,6 +30,7 @@ import {
 } from 'react-icons/ai';
 import { BiMenu } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
+import { FiPlus, FiMinus } from 'react-icons/fi';
 
 const icons = {
   RiPhoneFill,
@@ -48,6 +54,13 @@ const icons = {
   FaMapMarkerAlt,
   FaLinkedinIn,
   FaFlickr,
+  FiPlus,
+  FiMinus,
+  FaShieldAlt,
+  FaTruck,
+  BsGiftFill,
+  FaReply,
+  FaPhoneAlt,
 };
 
 export default icons;

@@ -42,6 +42,8 @@ var productSchema = new mongoose.Schema(
       default: [
         'https://cdn.tgdd.vn/Products/Images/44/231244/grey-1-org.jpg',
         'https://cdn.tgdd.vn/Products/Images/44/304028/asus-vivobook-15-oled-a1505va-i5-l1052w-thumb-600x600.jpg',
+        'https://cdn.tgdd.vn/Products/Images/7264/269358/elioec010-02-nu-1.jpg',
+        'https://cdn.tgdd.vn/Products/Images/7077/282959/befit-beu-b4-hong-2.jpg',
       ],
     },
     thumb: {

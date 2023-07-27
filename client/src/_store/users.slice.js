@@ -51,7 +51,6 @@ function createExtraActions() {
 function createExtraReducers() {
   return (builder) => {
     builder.addCase(extraActions.getCurrentUser.fulfilled, (state, action) => {
-      console.log(action);
       state.user = action.payload;
     });
   };
