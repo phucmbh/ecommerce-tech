@@ -48,10 +48,11 @@ const ForgotPassword = () => {
               />
 
               <Button
-                name="Submit"
                 handleOnClick={handleForgotPassword}
                 style="w-full px-4 py-2 text-white bg-main hover:bg-red-700 font-medium rounded-lg text-sm  text-center"
-              />
+              >
+                Submit
+              </Button>
 
               <Link
                 to={`/${path.LOGIN}`}

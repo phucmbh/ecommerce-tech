@@ -52,22 +52,36 @@ var that = (module.exports = {
   //Filtering, sorting and pagination
   getAllProducts: asyncHandler(async (req, res) => {
     try {
-      const queryObj = { ...req.query };
+      const queries = { ...req.query };
 
       //Delete special fields from query
       const excludedFields = ['page', 'sort', 'limit', 'fields'];
-      excludedFields.forEach((el) => delete queryObj[el]);
+      excludedFields.forEach((el) => delete queries[el]);
 
       //Reformat the query for the correct moongse syntax
-      let queryString = JSON.stringify(queryObj);
+      let queryString = JSON.stringify(queries);
       queryString = queryString.replace(
         /\b(gte|gt|lte|lt)\b/g,
         (match) => `$${match}`
       );
       let queryFormated = JSON.parse(queryString);
-      if (queryObj?.title)
-        queryFormated.title = { $regex: queryObj.title, $options: 'i' };
-      let query = Product.find(queryFormated);
+
+      //Filtering
+      let queryColor = {};
+      if (queries?.color) {
+        delete queryFormated.color;
+        const query = queries.color
+          ?.split(',')
+          .map((el) => ({ color: { $regex: el, $options: 'i' } }));
+        queryColor = { $or: query };
+      }
+
+      if (queries?.title)
+        queryFormated.title = { $regex: queries.title, $options: 'i' };
+      if (queries?.category)
+        queryFormated.category = { $regex: queries.category, $options: 'i' };
+
+      let query = Product.find({ ...queryColor, ...queryFormated });
 
       //sorting  a, b -> [a,b] -> a b
       if (req.query.sort) {
@@ -91,7 +105,7 @@ var that = (module.exports = {
       const products = await query;
 
       res.status(200).json({
-        status: 'success',
+        success: true,
         results: products.length,
         products,
       });

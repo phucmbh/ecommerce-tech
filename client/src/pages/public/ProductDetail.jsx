@@ -5,8 +5,16 @@ import { apiGetProduct } from '../../apis';
 import Slider from 'react-slick';
 import { renderStarFromNumber } from '../../utils/helper';
 import { formatMoney, formatPrice } from './../../utils/helper';
-import { Button, ExtraInfor, SelectQuantity } from '../../components';
-import { productExtraInformation } from '../../utils/contants.util';
+import {
+  Button,
+  ProductExtraInfo,
+  ProductInformation,
+  SelectQuantity,
+} from '../../components';
+import {
+  productExtraInformation,
+  productInformation,
+} from '../../utils/contants.util';
 
 const ProductDetail = () => {
   const { pid, title } = useParams();
@@ -21,10 +29,10 @@ const ProductDetail = () => {
     fectProduct();
   }, [pid]);
 
-  const handleQuantity = useCallback(
-    (number) => {
-      if (!Number(number) || Number(number < 1)) return;
-      else setQuantity(+number);
+  const handleInputQuantity = useCallback(
+    (e) => {
+      const number = e.target.validity.valid ? e.target.value : quantity;
+      setQuantity(number);
     },
     [quantity]
   );
@@ -32,7 +40,7 @@ const ProductDetail = () => {
   const handleChangeQuantity = useCallback(
     (action) => {
       if (action === 'minus') {
-        if (quantity === 1) return;
+        if (+quantity < 2) return setQuantity(1);
         setQuantity((prev) => +prev - 1);
       }
       if (action === 'plus') setQuantity((prev) => +prev + 1);
@@ -100,12 +108,12 @@ const ProductDetail = () => {
               <span className="font-light">5 reviews</span>
             </div>
             <div className="h-[300px] border">Description Technology</div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center mb-4">
               <span>Quantity</span>
               <span>
                 <SelectQuantity
                   quantity={quantity}
-                  handleQuantity={handleQuantity}
+                  handleInputQuantity={handleInputQuantity}
                   handleChangeQuantity={handleChangeQuantity}
                 />
               </span>
@@ -123,7 +131,7 @@ const ProductDetail = () => {
         </div>
         <div className="w-1/5 ">
           {productExtraInformation?.map((el) => (
-            <ExtraInfor
+            <ProductExtraInfo
               key={el.id}
               title={el.title}
               icon={el.icon}
@@ -131,6 +139,10 @@ const ProductDetail = () => {
             />
           ))}
         </div>
+      </div>
+
+      <div className="w-main m-auto mt-10">
+        <ProductInformation />
       </div>
       <div className="h-[500px]"></div>
     </section>

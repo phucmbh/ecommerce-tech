@@ -50,5 +50,12 @@ export default {
       'slide-top-sm': 'slide-top 0.2s linear both',
     },
   },
-  plugins: ['@tailwindcss/line-clamp'],
+
+  plugins: [
+    '@tailwindcss/line-clamp',
+    // eslint-disable-next-line no-undef
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
+  ],
 };

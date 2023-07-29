@@ -29,6 +29,7 @@ import {
   AiOutlineLogout,
 } from 'react-icons/ai';
 import { BiMenu } from 'react-icons/bi';
+import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 
@@ -61,6 +62,7 @@ const icons = {
   BsGiftFill,
   FaReply,
   FaPhoneAlt,
+  RiArrowDownSLine,
 };
 
 export default icons;

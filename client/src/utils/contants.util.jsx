@@ -62,3 +62,51 @@ export const productExtraInformation = [
     icon: <FaPhoneAlt />,
   },
 ];
+
+export const productInformation = [
+  {
+    id: 1,
+    title: 'DESCRIPTION',
+    content: 'Quality Checked',
+  },
+  {
+    id: 2,
+    title: 'WARRANTY',
+    content: 'Free On All Products',
+  },
+  {
+    id: 3,
+    title: 'DELIVERY',
+    content: 'Special Gift Cards',
+  },
+  {
+    id: 4,
+    title: 'PAYMENT',
+    content: 'Within 7 Days',
+  },
+  {
+    id: 5,
+    title: 'CUSTOM REVIEWS',
+    content: 'Lifetime 24/7/356',
+  },
+];
+
+export const colors = [
+  { id: 1, color: 'White' },
+  { id: 2, color: 'Black' },
+  { id: 3, color: 'Yellow' },
+  { id: 4, color: 'Red' },
+  { id: 5, color: 'Green' },
+  { id: 6, color: 'Pink' },
+  { id: 7, color: 'Blue' },
+];
+
+export const sorts = [
+  { id: 1, value: '-sold', text: 'Best selling' },
+  { id: 2, value: '-title', text: 'Alphabetically, A-Z' },
+  { id: 3, value: 'title', text: 'Alphabetically, Z-A' },
+  { id: 4, value: '-price', text: 'Price, high to low' },
+  { id: 5, value: 'price', text: 'Price, low to high' },
+  { id: 6, value: '-createdAt', text: 'Date, new to old' },
+  { id: 7, value: 'createdAt', text: 'Date, old to new' },
+];

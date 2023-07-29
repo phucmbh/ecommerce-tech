@@ -1,12 +1,16 @@
 import React, { memo } from 'react';
-icons
+icons;
 import icons from '../utils/icons.util';
 
-const { FiMinus, FiPlus } = icons
+const { FiMinus, FiPlus } = icons;
 
-const SelectQuantity = ({ quantity, handleQuantity, handleChangeQuantity }) => {
+const SelectQuantity = ({
+  quantity,
+  handleInputQuantity,
+  handleChangeQuantity,
+}) => {
   return (
-    <div className='flex'>
+    <div className="flex">
       <span
         onClick={() => handleChangeQuantity('minus')}
         className=" p-2 border-r border-black cursor-pointer"
@@ -16,8 +20,9 @@ const SelectQuantity = ({ quantity, handleQuantity, handleChangeQuantity }) => {
       <input
         type="text"
         className=" py-2 outline-none w-[50px] text-center"
+        pattern="[1-9][0-9]*"
+        onInput={(e) => handleInputQuantity(e)}
         value={quantity}
-        onChange={(e) => handleQuantity(e.target.value)}
       />
       <span
         onClick={() => handleChangeQuantity('plus')}

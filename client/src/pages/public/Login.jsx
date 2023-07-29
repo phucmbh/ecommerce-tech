@@ -160,10 +160,11 @@ const Login = () => {
               </div>
 
               <Button
-                name={isRegister ? 'Register' : 'Login'}
                 handleOnClick={handleSubmit}
                 style="w-full px-4 py-2 text-white bg-main hover:bg-red-700 font-medium rounded-lg text-sm  text-center"
-              />
+              >
+                {isRegister ? 'Register' : 'Login'}
+              </Button>
 
               {isRegister ? (
                 <span

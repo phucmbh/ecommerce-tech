@@ -9,7 +9,7 @@ import {
   ProductDetail,
   Service,
   Blog,
-  Product,
+  Products,
   VerifyEmail,
   ForgotPassword,
   ResetPassword,
@@ -30,7 +30,7 @@ function App() {
           />
           <Route path={path.FAQ} element={<FAQ />} />
           <Route path={path.OUR_SERVICES} element={<Service />} />
-          <Route path={path.PRODUCTS} element={<Product />} />
+          <Route path={path.PRODUCTS} element={<Products />} />
         </Route>
         <Route path={path.LOGIN} element={<Login />} />
         <Route path={path.VERIFY_EMAIL} element={<VerifyEmail />} />
