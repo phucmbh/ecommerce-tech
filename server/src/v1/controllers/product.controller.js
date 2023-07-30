@@ -42,7 +42,10 @@ var that = (module.exports = {
 
   getProduct: asyncHandler(async (req, res) => {
     const { pid } = req.params;
-    const product = await Product.findById(pid);
+    const product = await Product.findById(pid).populate({
+      path: 'ratings.postedBy',
+      select: 'avatar firstName lastName',
+    });
     return res.status(200).json({
       success: product ? true : false,
       product: product ? product : 'Can not get product',
@@ -134,6 +137,7 @@ var that = (module.exports = {
           $set: {
             'ratings.$.star': star,
             'ratings.$.comment': comment,
+            'ratings.$.updatedAt': Date.now(),
           },
         },
         { new: true }
@@ -142,7 +146,11 @@ var that = (module.exports = {
       //add star and comment
       await Product.findByIdAndUpdate(
         pid,
-        { $push: { ratings: { postedBy: _id, star, comment } } },
+        {
+          $push: {
+            ratings: { postedBy: _id, star, comment, updatedAt: Date.now() },
+          },
+        },
         {
           new: true,
         }

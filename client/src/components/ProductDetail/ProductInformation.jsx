@@ -4,7 +4,7 @@ import { productInformation } from '../../utils/contants.util';
 import Ratings from './Ratings';
 import { useDispatch } from 'react-redux';
 
-const ProductInformation = ({ product}) => {
+const ProductInformation = ({ product }) => {
   const [activeTab, setActiveTab] = useState(5);
 
   return (
@@ -32,15 +32,10 @@ const ProductInformation = ({ product}) => {
           CUSTOM REVIEWS
         </div>
       </div>
-      <div className=" border p-4">
+      <div className=" border p-10">
         {productInformation.find((el) => el.id === activeTab)?.content}
 
-        {activeTab === 5 && (
-          <Ratings
-            product={product}
-     
-          />
-        )}
+        {activeTab === 5 && <Ratings product={product} />}
       </div>
     </div>
   );

@@ -17,12 +17,6 @@ export { default as FooterTop } from './FooterTop';
 export { default as Footer } from './Footer';
 export { default as InputField } from './InputField';
 export { default as Button } from './Button';
-export { default as ProductExtraInfo } from './ProductDetail/ProductExtraInfo';
-export { default as SelectQuantity } from './ProductDetail/SelectQuantity';
-export { default as ProductInformation } from './ProductDetail/ProductInformation';
-export { default as Votebar } from './ProductDetail/Votebar';
-export { default as Ratings } from './ProductDetail/Ratings';
-export { default as ProductRelated } from './ProductDetail/ProductRelated';
-export { default as VoteOption } from './ProductDetail/VoteOption';
+
 export { default as SearchItem } from './SearchItem';
 export { default as InputSelect } from './InputSelect';

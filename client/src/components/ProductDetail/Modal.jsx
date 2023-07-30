@@ -1,5 +1,6 @@
 import { FaGalacticSenate } from 'react-icons/fa';
 import icons from '../../utils/icons.util';
+import { memo } from 'react';
 
 const { MdOutlineClose } = icons;
 const Modal = ({ open, setOpen, children }) => {
@@ -28,4 +29,4 @@ const Modal = ({ open, setOpen, children }) => {
     </div>
   );
 };
-export default Modal;
+export default memo(Modal);

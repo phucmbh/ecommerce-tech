@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import path from '../../utils/path.util';
 import Swal from 'sweetalert2';
+import Comment from './Comment';
 
 const Ratings = ({ product, rerender, setRerender }) => {
   const [open, setOpen] = useState(false);
@@ -68,11 +69,18 @@ const Ratings = ({ product, rerender, setRerender }) => {
           Rate now
         </Button>
         <Modal open={open} setOpen={setOpen}>
-          <VoteOption
-            product={product}
-            setOpen={setOpen}
-          />
+          <VoteOption product={product} setOpen={setOpen} />
         </Modal>
+        {product?.ratings?.map((el, index) => (
+          <Comment
+            key={index}
+            avatar={el.postedBy.avatar}
+            star={el.star}
+            name={`${el.postedBy.firstName} ${el.postedBy.lastName}`}
+            updatedAt={el.updatedAt}
+            comment={el.comment}
+          />
+        ))}
       </div>
     </div>
   );

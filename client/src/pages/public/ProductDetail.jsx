@@ -5,13 +5,15 @@ import { apiGetProduct } from '../../apis';
 import Slider from 'react-slick';
 import { renderStarFromNumber } from '../../utils/helper';
 import { formatMoney, formatPrice } from './../../utils/helper';
+import { Button } from '../../components';
+
 import {
-  Button,
   ProductExtraInfo,
   ProductInformation,
   ProductRelated,
   SelectQuantity,
-} from '../../components';
+} from '../../components/ProductDetail';
+
 import { productExtraInformation } from '../../utils/contants.util';
 import { useDispatch, useSelector } from 'react-redux';
 
