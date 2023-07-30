@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { PropTypes } from 'prop-types';
 
 const CountDown = ({ unit, number }) => {
   return (
@@ -8,11 +7,6 @@ const CountDown = ({ unit, number }) => {
       <span className="text-xs text-gray-700">{unit}</span>
     </div>
   );
-};
-
-CountDown.propTypes = {
-  unit: PropTypes.string,
-  number: PropTypes.string,
 };
 
 export default memo(CountDown);

@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { apiGetProducts } from '../apis';
 import Slider from 'react-slick';
-// import '../assets/styles/BestSeller.css';
-import Product from './Product';
+import '../../assets/styles/BestSeller.css';
+import Product from '../Product';
 import { useDispatch, useSelector } from 'react-redux';
-import { productActions } from '../_store';
-
-const tabs = [
-  { id: 1, name: 'best sellers' },
-  { id: 2, name: 'new arrivals' },
-  { id: 3, name: 'tablet' },
-];
+import { productActions } from '../../_store';
 
 const settings = {
   dots: false,
@@ -23,7 +16,7 @@ const settings = {
   // autoplaySpeed: 3000,
 };
 
-const NewArrivals = () => {
+const ProductRelated = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
 
@@ -35,11 +28,11 @@ const NewArrivals = () => {
     <div className="my-8  w-full">
       <div>
         <div className="flex text-[20px] gap-8 pb-4 border-b-2 border-main">
-          <span className="capitalize font-semibold">New Arrivals</span>
+          <span className="capitalize font-semibold">OTHER CUSTOMERS ALSO BUY:</span>
         </div>
       </div>
       <div className="mt-4 mx-[-10px]">
-        <Slider {...settings}>
+        <Slider {...settings} className="custom-slider">
           {products?.map((p) => (
             <Product key={p._id} productData={p} isNew={true} />
           ))}
@@ -49,4 +42,4 @@ const NewArrivals = () => {
   );
 };
 
-export default NewArrivals;
+export default ProductRelated;

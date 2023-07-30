@@ -18,7 +18,7 @@ import path from './utils/path.util';
 
 function App() {
   return (
-    <div className="min-h-screen font-main">
+    <div className="min-h-screen font-main relative">
       <Routes>
         <Route path={path.PUBLIC} element={<Public />}>
           <Route path={path.HOME} element={<Home />} />
@@ -37,18 +37,6 @@ function App() {
         <Route path={path.FORGOT_PASSWORD} element={<ForgotPassword />} />
         <Route path={path.RESET_PASSWORD} element={<ResetPassword />} />
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
 
       <ToastContainer />
     </div>

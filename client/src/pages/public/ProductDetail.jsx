@@ -9,25 +9,52 @@ import {
   Button,
   ProductExtraInfo,
   ProductInformation,
+  ProductRelated,
   SelectQuantity,
 } from '../../components';
-import {
-  productExtraInformation,
-  productInformation,
-} from '../../utils/contants.util';
+import { productExtraInformation } from '../../utils/contants.util';
+import { useDispatch, useSelector } from 'react-redux';
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  slide: 'img',
+  centerPadding: '10px',
+
+  // autoplay: true,
+  // autoplaySpeed: 3000,
+};
 
 const ProductDetail = () => {
   const { pid, title } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
+  const [currentImage, setCurrentImage] = useState(null);
+  const { refreshRating } = useSelector((state) => state.products);
+
   useEffect(() => {
     const fectProduct = async () => {
       const response = await apiGetProduct(pid);
-      setProduct(response.product);
+      setProduct(response?.product);
+      setCurrentImage(response?.product?.thumb);
     };
 
     fectProduct();
+    window.scrollTo(0, 0);
   }, [pid]);
+
+  useEffect(() => {
+    const fectProduct = async () => {
+      const response = await apiGetProduct(pid);
+      setProduct(response?.product);
+      setCurrentImage(response?.product?.thumb);
+    };
+
+    fectProduct();
+  }, [refreshRating]);
 
   const handleInputQuantity = useCallback(
     (e) => {
@@ -48,21 +75,8 @@ const ProductDetail = () => {
     [quantity]
   );
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    slide: 'img',
-    centerPadding: '10px',
-
-    // autoplay: true,
-    // autoplaySpeed: 3000,
-  };
-
   return (
-    <section>
+    <section className="relative">
       <div className="h-[80px] bg-gray-100 flex justify-center">
         <div className="w-main flex items-center">Breadcrumbs</div>
       </div>
@@ -70,7 +84,7 @@ const ProductDetail = () => {
         <div className="w-2/5">
           <div className="w-full ">
             <img
-              src={product?.images[0]}
+              src={currentImage}
               alt=""
               className="w-[458px] h-[458px] object-cover m-auto"
             />
@@ -80,12 +94,13 @@ const ProductDetail = () => {
             {product && (
               <Slider className="product-detail-slider w-full" {...settings}>
                 {product?.images?.map((el, index) => (
-                  <div key={index} className="px-[5px]">
+                  <div key={index} className="px-[5px] ">
                     <img
                       key={index}
                       src={el}
                       alt=""
-                      className=" h-[143px] w-full "
+                      onClick={() => setCurrentImage(el)}
+                      className=" h-[143px] w-full border object-cover cursor-pointer"
                     />
                   </div>
                 ))}
@@ -142,9 +157,10 @@ const ProductDetail = () => {
       </div>
 
       <div className="w-main m-auto mt-10">
-        <ProductInformation />
+        <ProductInformation product={product} />
+        <div className="h-[500px]"></div>
+        <ProductRelated />
       </div>
-      <div className="h-[500px]"></div>
     </section>
   );
 };

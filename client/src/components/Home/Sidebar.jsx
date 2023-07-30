@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { categoryActions } from '../_store';
+import { categoryActions } from '../../_store';
 
 const Sidebar = () => {
   const dispatch = useDispatch();

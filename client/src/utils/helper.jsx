@@ -5,13 +5,18 @@ export const formatMoney = (number) =>
 export const formatPrice = (number) => Math.round(number / 1000) * 1000;
 
 export const renderStarFromNumber = (number, size) => {
-  const { BsStarFill, BsStar } = icons;
+  const { BsStarFill, BsStar, BsStarHalf } = icons;
   const stars = [];
-
+  number = +number;
   for (let i = 1; i <= 5; i++) {
-    if (i <= +number)
+    if (i <= number)
       stars.push(<BsStarFill color="orange" key={i} size={size || 16} />);
-    else stars.push(<BsStar color="orange" key={i} size={size || 16} />);
+
+    if (i > number) {
+      if (i - number === 0.5)
+        stars.push(<BsStarHalf color="orange" key={i} size={size || 16} />);
+      else stars.push(<BsStar color="orange" key={i} size={size || 16} />);
+    }
   }
 
   return stars;

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 icons;
-import icons from '../utils/icons.util';
+import icons from '../../utils/icons.util';
 
 const { FiMinus, FiPlus } = icons;
 

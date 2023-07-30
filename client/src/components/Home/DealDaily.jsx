@@ -1,9 +1,11 @@
 import React, { useEffect, useState, memo } from 'react';
-import icons from '../utils/icons.util';
-import { apiGetProducts } from '../apis';
-import { formatMoney, renderStarFromNumber } from './../utils/helper';
+import icons from '../../utils/icons.util';
+import { apiGetProducts } from '../../apis';
+import { formatMoney, renderStarFromNumber } from '../../utils/helper';
+
+import { useCountdown } from '../../hook/useCountdown';
 import CountDown from './CountDown';
-import { useCountdown } from '../hook/useCountdown';
+
 const { BsStarFill, BiMenu } = icons;
 
 const TWO_DAYS_IN_MS = 1 * 24 * 60 * 60 * 1000;
@@ -16,7 +18,7 @@ const DealDaily = () => {
 
   const fetchDealDaily = async () => {
     const response = await apiGetProducts({ limit: 1, totalRatings: 5 });
-    response && setDealdaily(response.products[0]);
+    if (response?.success) setDealdaily(response.products[0]);
   };
 
   useEffect(() => {

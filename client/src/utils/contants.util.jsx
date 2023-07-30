@@ -84,11 +84,6 @@ export const productInformation = [
     title: 'PAYMENT',
     content: 'Within 7 Days',
   },
-  {
-    id: 5,
-    title: 'CUSTOM REVIEWS',
-    content: 'Lifetime 24/7/356',
-  },
 ];
 
 export const colors = [
@@ -109,4 +104,12 @@ export const sorts = [
   { id: 5, value: 'price', text: 'Price, low to high' },
   { id: 6, value: '-createdAt', text: 'Date, new to old' },
   { id: 7, value: 'createdAt', text: 'Date, old to new' },
+];
+
+export const vote = [
+  { id: 1, text: 'Very bad' },
+  { id: 2, text: 'Bad' },
+  { id: 3, text: 'Normal' },
+  { id: 4, text: 'Good' },
+  { id: 5, text: 'Perfect' },
 ];

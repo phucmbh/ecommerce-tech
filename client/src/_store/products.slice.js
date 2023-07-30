@@ -5,9 +5,10 @@ import * as apis from '../apis';
 
 const name = 'products';
 const initialState = createInitialState();
+const reducers = createReducers();
 const extraActions = createExtraActions();
 const extraReducers = createExtraReducers();
-const slice = createSlice({ name, initialState, extraReducers });
+const slice = createSlice({ name, initialState, reducers, extraReducers });
 
 // exports
 
@@ -20,6 +21,15 @@ function createInitialState() {
   return {
     products: null,
     isLoading: false,
+    refreshRating: false,
+  };
+}
+
+function createReducers() {
+  return {
+    rerenderRating: (state, action) => {
+      state.refreshRating = action.payload.refreshRating;
+    },
   };
 }
 

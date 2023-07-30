@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { categoryActions } from '../_store/categories.slice';
-import icons from './../utils/icons.util';
+import { categoryActions } from '../../_store/categories.slice';
+import icons from '../../utils/icons.util';
 
 const { IoIosArrowForward } = icons;
 

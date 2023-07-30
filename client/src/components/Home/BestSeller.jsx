@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { apiGetProducts } from '../apis';
+import { apiGetProducts } from '../../apis';
 import Slider from 'react-slick';
-import '../assets/styles/BestSeller.css';
-import Product from './Product';
-
+import '../../assets/styles/BestSeller.css';
+import Product from '../Product';
 
 const tabs = [
   { id: 1, name: 'best sellers' },
@@ -29,7 +28,6 @@ const BestSeller = () => {
   const [listProducts, setListProducts] = useState(null);
   const [isNew, setIsNew] = useState(true);
 
-
   const fectchProducts = async () => {
     await Promise.all([
       apiGetProducts({ sort: '-sold' }),
@@ -43,7 +41,6 @@ const BestSeller = () => {
       .catch((err) => console.error(err));
   };
   useEffect(() => {
-    
     fectchProducts();
   }, []);
 
@@ -76,7 +73,7 @@ const BestSeller = () => {
         </div>
       </div>
       <div className="mt-4 mx-[-10px]">
-        <Slider className='custom-slider' {...settings}>
+        <Slider className="custom-slider" {...settings}>
           {listProducts?.map((p) => (
             <Product key={p._id} productData={p} isNew={isNew} />
           ))}

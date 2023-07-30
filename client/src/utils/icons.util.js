@@ -1,5 +1,5 @@
 import { RiPhoneFill } from 'react-icons/ri';
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdOutlineClose } from 'react-icons/md';
 import {
   FaUserCircle,
   FaRegMoneyBillAlt,
@@ -63,6 +63,7 @@ const icons = {
   FaReply,
   FaPhoneAlt,
   RiArrowDownSLine,
+  MdOutlineClose,
 };
 
 export default icons;
