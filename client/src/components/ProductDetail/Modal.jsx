@@ -1,14 +1,21 @@
 import { FaGalacticSenate } from 'react-icons/fa';
 import icons from '../../utils/icons.util';
 import { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../../_store';
 
 const { MdOutlineClose } = icons;
-const Modal = ({ open, setOpen, children }) => {
+const Modal = ({ children }) => {
+  const dispatch = useDispatch();
+  const { modalRating } = useSelector((state) => state.products);
+
   return (
     <div
-      onClick={() => setOpen(false)}
+      onClick={() =>
+        dispatch(productActions.showModalRating({ modalRating: false }))
+      }
       className={`fixed inset-0 flex justify-center items-center transition-colors z-50  ${
-        open ? 'visible bg-black/20' : 'invisible'
+        modalRating ? 'visible bg-black/20' : 'invisible'
       }`}
     >
       {/* Modal */}
@@ -19,7 +26,9 @@ const Modal = ({ open, setOpen, children }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={() => setOpen(false)}
+          onClick={() =>
+            dispatch(productActions.showModalRating({ modalRating: false }))
+          }
           className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600"
         >
           <MdOutlineClose size={30} />

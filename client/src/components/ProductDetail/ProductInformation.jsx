@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { Children, useEffect, useState } from 'react';
 import { memo, useCallback } from 'react';
 import { productInformation } from '../../utils/contants.util';
 import Ratings from './Ratings';
 import { useDispatch } from 'react-redux';
 
-const ProductInformation = ({ product }) => {
+const ProductInformation = ({ children }) => {
   const [activeTab, setActiveTab] = useState(5);
 
   return (
-    <div className="">
+    <div className="w-main m-auto mt-10">
       <div className="flex items-center gap-2 relative bottom-[-1px]">
         {productInformation?.map((el) => (
           <span
@@ -35,7 +35,7 @@ const ProductInformation = ({ product }) => {
       <div className=" border p-10">
         {productInformation.find((el) => el.id === activeTab)?.content}
 
-        {activeTab === 5 && <Ratings product={product} />}
+        {activeTab === 5 && <>{children}</>}
       </div>
     </div>
   );

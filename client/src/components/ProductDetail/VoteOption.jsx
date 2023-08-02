@@ -9,21 +9,20 @@ import { productActions } from '../../_store';
 
 const { BsStarFill } = icons;
 
-const VoteOption = ({ product, setOpen }) => {
+const VoteOption = ({ product, setProduct }) => {
   const [star, setStar] = useState(5);
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
-
-  const { refreshRating } = useSelector((state) => state.products);
+  const { modalRating } = useSelector((state) => state.products);
 
   const handleSendReview = async () => {
     const response = await apiRating({ pid: product._id, star, comment });
-    setOpen(false);
+
+    dispatch(productActions.showModalRating({ modalRating: false }));
     if (response.success) {
       toast.success('Comment successfully', { autoClose: 1000 });
-      dispatch(
-        productActions.rerenderRating({ refreshRating: !refreshRating })
-      );
+
+      setProduct(response.product);
       return;
     }
 

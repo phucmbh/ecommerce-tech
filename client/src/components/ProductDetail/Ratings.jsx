@@ -10,25 +10,9 @@ import path from '../../utils/path.util';
 import Swal from 'sweetalert2';
 import Comment from './Comment';
 
-const Ratings = ({ product, rerender, setRerender }) => {
-  const [open, setOpen] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.users);
-  const navigate = useNavigate();
+const Ratings = ({ product, children, handleRateNow }) => {
+  
 
-  const handleRateNow = useCallback(() => {
-    if (!isLoggedIn) {
-      Swal.fire({
-        text: 'Login to rate',
-        showCancelButton: true,
-        confirmButtonText: 'Go login',
-        title: 'Oops!',
-      }).then((result) => {
-        if (result.isConfirmed) navigate(`/${path.LOGIN}`);
-      });
-    } else {
-      setOpen(true);
-    }
-  }, [isLoggedIn]);
   return (
     <div>
       <div className="flex border rounded-3xl">
@@ -68,19 +52,8 @@ const Ratings = ({ product, rerender, setRerender }) => {
         >
           Rate now
         </Button>
-        <Modal open={open} setOpen={setOpen}>
-          <VoteOption product={product} setOpen={setOpen} />
-        </Modal>
-        {product?.ratings?.map((el, index) => (
-          <Comment
-            key={index}
-            avatar={el.postedBy.avatar}
-            star={el.star}
-            name={`${el.postedBy.firstName} ${el.postedBy.lastName}`}
-            updatedAt={el.updatedAt}
-            comment={el.comment}
-          />
-        ))}
+
+        {children}
       </div>
     </div>
   );

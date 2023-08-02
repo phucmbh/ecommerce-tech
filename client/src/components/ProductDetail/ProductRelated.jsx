@@ -25,10 +25,12 @@ const ProductRelated = () => {
   }, []);
 
   return (
-    <div className="my-8  w-full">
+    <div className="w-main m-auto my-10">
       <div>
         <div className="flex text-[20px] gap-8 pb-4 border-b-2 border-main">
-          <span className="capitalize font-semibold">OTHER CUSTOMERS ALSO BUY:</span>
+          <span className="capitalize font-semibold">
+            OTHER CUSTOMERS ALSO BUY:
+          </span>
         </div>
       </div>
       <div className="mt-4 mx-[-10px]">

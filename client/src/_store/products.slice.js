@@ -21,14 +21,22 @@ function createInitialState() {
   return {
     products: null,
     isLoading: false,
-    refreshRating: false,
+    modalRating: false,
+    showFilter: null,
+    currentPage: 1,
   };
 }
 
 function createReducers() {
   return {
-    rerenderRating: (state, action) => {
-      state.refreshRating = action.payload.refreshRating;
+    showModalRating: (state, action) => {
+      state.modalRating = action.payload.modalRating;
+    },
+    setShowFilter: (state, action) => {
+      state.showFilter = action.payload.showFilter;
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload.currentPage;
     },
   };
 }

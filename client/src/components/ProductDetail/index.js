@@ -6,3 +6,5 @@ export { default as Votebar } from './Votebar';
 export { default as Ratings } from './Ratings';
 export { default as ProductRelated } from './ProductRelated';
 export { default as VoteOption } from './VoteOption';
+export { default as ProductLayout } from '../Products/ProductLayout';
+export { default as Pagination } from '../Products/Pagination';

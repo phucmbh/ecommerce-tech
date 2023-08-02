@@ -158,7 +158,10 @@ var that = (module.exports = {
     }
 
     //sum ratings
-    const updatedProduct = await Product.findById(pid);
+    const updatedProduct = await Product.findById(pid).populate({
+      path: 'ratings.postedBy',
+      select: 'firstName lastName avatar',
+    });
     const ratingCount = updatedProduct.ratings.length;
     const ratingSum = updatedProduct.ratings.reduce(
       (sum, r) => sum + +r.star,
@@ -170,6 +173,7 @@ var that = (module.exports = {
 
     return res.status(200).json({
       success: true,
+      product: updatedProduct,
     });
   }),
 
