@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import icons from '../utils/icons.util';
+import icons from 'utils/icons.util';
 
 const {
   RiPhoneFill,

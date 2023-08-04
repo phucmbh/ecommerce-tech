@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { apiGetProducts } from '../../apis';
-import { Product } from '../../components';
+import { apiGetProducts } from 'apis';
+import { Product } from 'components';
 import { useSearchParams } from 'react-router-dom';
-import { Pagination } from '../../components/ProductDetail';
-import FilterCapacity from '../../components/Products/Filter - Sort/FilterCapacity';
-import FilterPrice from '../../components/Products/Filter - Sort/FilterPrice';
-import FilterBy from '../../components/Products/Filter - Sort/FilterBy';
-import SortBy from '../../components/Products/Filter - Sort/SortBy';
+import { Pagination } from 'components/ProductDetail';
+import FilterCapacity from 'components/Products/Filter - Sort/FilterCapacity';
+import FilterPrice from 'components/Products/Filter - Sort/FilterPrice';
+import FilterBy from 'components/Products/Filter - Sort/FilterBy';
+import SortBy from 'components/Products/Filter - Sort/SortBy';
 
 const Products = () => {
   const [products, setProducts] = useState([]);

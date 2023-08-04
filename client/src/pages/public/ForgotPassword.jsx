@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import logo from '/images/logo.png';
-import { Link, useNavigate } from 'react-router-dom';
-import path from '../../utils/path.util';
-import { Button, InputField } from '../../components';
-import { apiForgotPassword } from '../../apis/users.api';
+import { Link } from 'react-router-dom';
+import path from 'utils/path.util';
+import { Button, InputField } from 'components';
+import { apiForgotPassword } from 'apis/users.api';
 import { toast } from 'react-toastify';
 
 const ForgotPassword = () => {

@@ -1,9 +1,10 @@
 import React, { memo, useEffect } from 'react';
-import icons from '../utils/icons.util';
-import { Link } from 'react-router-dom';
-import path from '../utils/path.util';
+import icons from 'utils/icons.util';
+import { Link, useNavigate } from 'react-router-dom';
+import path from 'utils/path.util';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../_store';
+import { userActions } from '_store';
+import Swal from 'sweetalert2';
 
 const {
   FaRegMoneyBillAlt,
@@ -16,14 +17,25 @@ const {
 
 const HeaderTop = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, user } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const { isLoggedIn, user, message } = useSelector((state) => state.users);
   useEffect(() => {
     if (isLoggedIn) dispatch(userActions.getCurrentUser());
-  }, [isLoggedIn, dispatch]);
+  }, [isLoggedIn]);
 
   const handleLogout = () => {
     dispatch(userActions.logout());
   };
+
+  console.log(message);
+
+  useEffect(() => {
+    if (message)
+      Swal.fire('Opps!', message, 'info').then(() => {
+        dispatch(userActions.clearMessage());
+        navigate(`/${path.LOGIN}`);
+      });
+  }, [message]);
 
   return (
     <div
@@ -41,7 +53,7 @@ const HeaderTop = () => {
           </div>
         </div>
 
-        {isLoggedIn ? (
+        {isLoggedIn && user ? (
           <div className="flex items-center gap-3">
             <span>{`Welcome, ${user?.firstName} ${user?.lastName}`}</span>
             <span

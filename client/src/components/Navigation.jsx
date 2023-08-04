@@ -1,5 +1,5 @@
 import React from 'react';
-import { navigation } from './../utils/contants.util';
+import { navigation } from 'utils/contants.util';
 import { NavLink } from 'react-router-dom';
 const notActiveStyle = 'pr-12 hover:text-main';
 const activeStyle = 'pr-12 hover:text-main text-main';

@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import logo from '/images/logo.png';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import path from '../../utils/path.util';
-import { Button, InputField } from '../../components';
-import { apiResetPassword } from '../../apis/users.api';
-import Swal from 'sweetalert2';
+import path from 'utils/path.util';
+import { Button, InputField } from 'components';
+import { apiResetPassword } from 'apis/users.api';
 import { toast } from 'react-toastify';
 
 const ResetPassword = () => {

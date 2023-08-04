@@ -1,5 +1,4 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 
 function SelectOption({ icon }) {
   return (
@@ -8,9 +7,5 @@ function SelectOption({ icon }) {
     </div>
   );
 }
-
-SelectOption.propTypes = {
-  icon: PropTypes.object,
-};
 
 export default SelectOption;

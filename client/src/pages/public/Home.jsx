@@ -8,7 +8,7 @@ import {
   Sidebar,
   HotCollections,
   BlogPosts,
-} from '../../components';
+} from 'components';
 
 function Home() {
   return (

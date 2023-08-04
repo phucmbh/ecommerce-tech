@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../assets/styles/ProductDetail.css';
-import { apiGetProduct } from '../../apis';
+import 'assets/styles/ProductDetail.css';
+import { apiGetProduct } from 'apis';
 
 
 

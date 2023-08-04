@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import path from '../../utils/path.util';
-import { apiVerifyEmail } from '../../apis';
+import path from 'utils/path.util';
+import { apiVerifyEmail } from 'apis';
 
 const VerifyEmail = () => {
   const { token } = useParams();

@@ -12,7 +12,7 @@ export const injectStore = (_store) => {
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = store.getState().users.token;
+    const token = store?.getState().users.token;
     config.headers.authorization = `Bearer ${token}`;
     return config;
   },
@@ -33,7 +33,8 @@ axiosInstance.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return error.response?.data;
+    console.log(error.response);
+    return error.response;
   }
 );
 

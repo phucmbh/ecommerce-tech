@@ -23,6 +23,7 @@ function createInitialState() {
     token: null,
     user: null,
     isLoading: false,
+    message: '',
   };
 }
 
@@ -32,26 +33,44 @@ function createReducers() {
       state.isLoggedIn = action.payload.isLoggedIn;
       state.token = action.payload.token;
     },
-    logout: (state, action) => {
+    logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
+    },
+    clearMessage: (state) => {
+      state.message = '';
     },
   };
 }
 
 function createExtraActions() {
   return {
-    getCurrentUser: createAsyncThunk(`${name}/getUserCurrent`, async () => {
-      const response = await apis.apiGetUserCurrent();
-      return response.user;
-    }),
+    getCurrentUser: createAsyncThunk(
+      `${name}/getUserCurrent`,
+      async (data, { rejectWithValue }) => {
+        const response = await apis.apiGetUserCurrent(data);
+        if (response.status < 200 || response.status >= 300) {
+          return rejectWithValue(response);
+        }
+        return response.user;
+      }
+    ),
   };
 }
 
 function createExtraReducers() {
   return (builder) => {
     builder.addCase(extraActions.getCurrentUser.fulfilled, (state, action) => {
+      state.isLoading = false;
       state.user = action.payload;
+    });
+
+    builder.addCase(extraActions.getCurrentUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.user = null;
+      state.isLoggedIn = false;
+      state.token = null;
+      state.message = 'Login session has expired';
     });
   };
 }
