@@ -18,11 +18,19 @@ export const appReducer = slice.reducer;
 // implementation
 
 function createInitialState() {
-  return {};
+  return {
+    isShowModal: false,
+    modalChildren: null,
+  };
 }
 
 function createReducers() {
-  return {};
+  return {
+    showModal: (state, action) => {
+      state.isShowModal = action.payload.isShowModal;
+      state.modalChildren = action.payload.modalChildren;
+    },
+  };
 }
 
 function createExtraActions() {

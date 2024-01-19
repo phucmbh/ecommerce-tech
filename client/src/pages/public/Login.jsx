@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { userActions } from '_store';
+import { appActions, productActions, userActions } from '_store';
 import logo from '/images/logo.png';
 
 import path from 'utils/path.util';
-import { Button, InputField } from 'components';
+import { Button, InputField, Loading } from 'components';
 import { apiLogin, apiRegister } from 'apis/users.api';
 import { validate } from 'utils/helper';
 
@@ -48,8 +48,18 @@ const Login = () => {
 
     if (invalids === 0) {
       if (isRegister) {
+        dispatch(
+          appActions.showModal({
+            isShowModal: true,
+            modalChildren: <Loading />,
+          })
+        );
+
         const response = await apiRegister(payload);
-        console.log(response);
+        dispatch(
+          appActions.showModal({ isShowModal: false, modalChildren: null })
+        );
+
         if (response.success) {
           new Swal('Congratulations', response.message, 'success').then(() => {
             setIsRegister(false);

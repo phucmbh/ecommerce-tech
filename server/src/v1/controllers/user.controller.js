@@ -40,6 +40,11 @@ var that = (module.exports = {
         reason: 'verify your email address',
         email,
       });
+
+      // setTimeout(async () => {
+      //   await User.deleteOne({ email: email });
+      // }, [FIFTEEN_MINUTES]);
+
       return res.status(200).json({
         success: true,
         message: 'Please check your email to active your account',
@@ -207,9 +212,7 @@ var that = (module.exports = {
   //Verify accessToken req.user {_id:..., role:...}
   getUser: asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const user = await User.findById(_id).select(
-      '-password -role -refreshToken'
-    );
+    const user = await User.findById(_id).select('-password -refreshToken');
     return res.status(200).json({
       success: user ? true : false,
       user: user ? user : 'User is not found',

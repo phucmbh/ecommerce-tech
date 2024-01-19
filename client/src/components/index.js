@@ -19,3 +19,5 @@ export { default as InputField } from './InputField';
 export { default as Button } from './Button';
 
 export { default as InputSelect } from './InputSelect';
+export { default as Loading } from './Loading';
+export { default as Modal } from './Modal';

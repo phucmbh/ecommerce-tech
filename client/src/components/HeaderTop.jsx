@@ -27,8 +27,6 @@ const HeaderTop = () => {
     dispatch(userActions.logout());
   };
 
-  console.log(message);
-
   useEffect(() => {
     if (message)
       Swal.fire('Opps!', message, 'info').then(() => {
