@@ -1,5 +1,5 @@
 import axiosInstance from '../config/axios.config';
-
+// Nen tach ra 2 cai public va private nghien cuu them
 export const apiRegister = (data) =>
   axiosInstance({
     url: '/user/register',
@@ -38,4 +38,11 @@ export const apiGetUserCurrent = () =>
   axiosInstance({
     url: '/user/current',
     method: 'GET',
+  });
+
+export const apiGetAllUsers = (params) =>
+  axiosInstance({
+    url: '/user',
+    method: 'GET',
+    params,
   });

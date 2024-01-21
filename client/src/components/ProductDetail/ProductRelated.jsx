@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import '../../assets/styles/BestSeller.css';
-import Product from '../Product';
+import Product from '../common/Product';
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '../../_store';
 

@@ -16,7 +16,7 @@ import { appReducer } from './app.slice';
 const userConfig = {
   key: 'user',
   storage,
-  whitelist: ['isLoggedIn', 'token'],
+  whitelist: ['isLoggedIn', 'token', 'user'],
 };
 
 export const store = configureStore({

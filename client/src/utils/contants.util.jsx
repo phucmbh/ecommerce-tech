@@ -1,6 +1,16 @@
 import icons from './icons.util';
 import path from './path.util';
-const { FaShieldAlt, FaTruck, BsGiftFill, FaReply, FaPhoneAlt } = icons;
+const {
+  FaShieldAlt,
+  FaTruck,
+  BsGiftFill,
+  FaReply,
+  FaPhoneAlt,
+  RxDashboard,
+  FaUserCog,
+  LuStore,
+  RiBillLine,
+} = icons;
 
 export const navigation = [
   {
@@ -112,4 +122,46 @@ export const vote = [
   { id: 3, text: 'Normal' },
   { id: 4, text: 'Good' },
   { id: 5, text: 'Perfect' },
+];
+
+export const adminSidebar = [
+  {
+    id: 1,
+    type: 'SINGLE',
+    text: 'Dashboard',
+    icon: <RxDashboard />,
+    path: `${path.DASHBOARD}`,
+  },
+  {
+    id: 2,
+    type: 'SINGLE',
+    text: 'Manage User',
+    icon: <FaUserCog />,
+    path: `${path.MANAGE_USERS}`,
+  },
+  {
+    id: 3,
+    type: 'PARENT',
+    text: 'Manage Product',
+    icon: <LuStore />,
+    submenu: [
+      {
+        id: 1,
+        text: 'Mange product',
+        path: `${path.MANAGE_PRODUCTS}`,
+      },
+      {
+        id: 2,
+        text: 'Create product',
+        path: `${path.CREATE_PRODUCTS}`,
+      },
+    ],
+  },
+  {
+    id: 4,
+    type: 'SINGLE',
+    text: 'Manage Order',
+    icon: <RiBillLine />,
+    path: `${path.MANAGE_ORDERS}`,
+  },
 ];

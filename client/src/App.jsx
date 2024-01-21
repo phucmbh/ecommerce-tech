@@ -26,7 +26,7 @@ import {
 import { MemberLayout, Personal } from 'pages/member';
 import path from 'utils/path.util';
 import { useSelector } from 'react-redux';
-import Modal from 'components/Modal';
+import Modal from 'components/common/Modal';
 
 function App() {
   const { isShowModal, modalChildren } = useSelector((state) => state.app);

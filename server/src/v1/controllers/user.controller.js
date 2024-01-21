@@ -10,6 +10,7 @@ const User = require('../models/user.model');
 const asyncHandler = require('express-async-handler');
 const sendMail = require('../utils/sendMail');
 const client = require('../databases/init.redis');
+const { userData } = require('../../tool/user-data');
 
 var that = (module.exports = {
   register: asyncHandler(async (req, res) => {
@@ -75,6 +76,7 @@ var that = (module.exports = {
   //Check password, create accessToken, create refreshToken - update in db - store in cookie
   login: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
+    console.log(req.body);
     if (!email || !password)
       return res.status(400).json({
         success: false,
@@ -220,11 +222,61 @@ var that = (module.exports = {
   }),
 
   getAllUsers: asyncHandler(async (req, res) => {
-    const user = await User.find({}).select('-password -refreshToken -role');
-    return res.status(200).json({
-      success: user ? true : false,
-      users: user ? user : 'Users are not found',
-    });
+    try {
+      const queries = { ...req.query };
+
+      //Delete special fields from query
+      const excludedFields = ['page', 'sort', 'limit', 'fields'];
+      excludedFields.forEach((el) => delete queries[el]);
+
+      //Reformat the query for the correct moongse syntax
+      let queryString = JSON.stringify(queries);
+      queryString = queryString.replace(
+        /\b(gte|gt|lte|lt)\b/g,
+        (match) => `$${match}`
+      );
+      let queryFormated = JSON.parse(queryString);
+
+      //Filtering
+      let queryColor = {};
+
+      if (queries?.name)
+        queryFormated.name = { $regex: queries.name, $options: 'i' };
+
+      let query = User.find(queryFormated);
+
+      //sorting  a, b -> [a,b] -> a b
+      if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ');
+        query = query.sort(sortBy);
+      }
+
+      //Fields limiting
+      if (req.query.fields) {
+        const fields = req.query.fields.split(',').join(' ');
+        query = query.select(fields);
+      }
+
+      //Pagination
+      const page = +req.query.page || 1;
+      const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+      const skip = (page - 1) * limit;
+      query.skip(skip).limit(limit);
+
+      //EXECUTE QUERY
+      const users = await query;
+
+      res.status(200).json({
+        success: true,
+        results: users.length,
+        users,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        users: error,
+      });
+    }
   }),
 
   deleteUser: asyncHandler(async (req, res) => {
@@ -318,5 +370,13 @@ var that = (module.exports = {
         message: result ? user : 'Cannt update cart',
       });
     }
+  }),
+
+  mockUser: asyncHandler(async (req, res) => {
+    const users = await User.create(userData);
+    res.status(200).json({
+      success: users ? true : false,
+      message: users ? users : 'Failed',
+    });
   }),
 });

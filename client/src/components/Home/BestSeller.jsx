@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { apiGetProducts } from '../../apis';
 import Slider from 'react-slick';
 import '../../assets/styles/BestSeller.css';
-import Product from '../Product';
+import Product from '../common/Product';
 
 const tabs = [
   { id: 1, name: 'best sellers' },

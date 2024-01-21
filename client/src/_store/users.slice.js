@@ -36,6 +36,7 @@ function createReducers() {
     logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
+      state.user = null;
     },
     clearMessage: (state) => {
       state.message = '';

@@ -1,5 +1,5 @@
 import { memo, useState, useCallback } from 'react';
-import Button from '../Button';
+import Button from '../common/Button';
 import { vote } from '../../utils/contants.util';
 import icons from '../../utils/icons.util';
 import { apiRating } from '../../apis';

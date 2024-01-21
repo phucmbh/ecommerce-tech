@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import InputSelect from '../../InputSelect';
+import InputSelect from '../../common/InputSelect';
 import { sorts } from '../../../utils/contants.util';
 import {
   createSearchParams,

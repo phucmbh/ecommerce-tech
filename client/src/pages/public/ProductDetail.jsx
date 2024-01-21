@@ -3,8 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import 'assets/styles/ProductDetail.css';
 import { apiGetProduct } from 'apis';
 
-
-
 import {
   Comment,
   ProductInformation,
@@ -24,7 +22,6 @@ const ProductDetail = () => {
   const { pid, title } = useParams();
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.users);
-
   const [product, setProduct] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const dispatch = useDispatch();

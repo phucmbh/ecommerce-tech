@@ -1,5 +1,5 @@
 import { RiPhoneFill } from 'react-icons/ri';
-import { MdEmail, MdOutlineClose } from 'react-icons/md';
+import { MdEmail, MdOutlineClose, MdAdminPanelSettings } from 'react-icons/md';
 import {
   FaUserCircle,
   FaRegMoneyBillAlt,
@@ -11,6 +11,7 @@ import {
   FaTruck,
   FaReply,
   FaPhoneAlt,
+  FaUserCog,
 } from 'react-icons/fa';
 import {
   BsFillCartFill,
@@ -32,8 +33,16 @@ import { BiMenu } from 'react-icons/bi';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import { FiPlus, FiMinus } from 'react-icons/fi';
+import { RxDashboard } from 'react-icons/rx';
+import { LuStore } from 'react-icons/lu';
+import { RiBillLine } from 'react-icons/ri';
 
 const icons = {
+  RiBillLine,
+  LuStore,
+  FaUserCog,
+  RxDashboard,
+  MdAdminPanelSettings,
   RiPhoneFill,
   MdEmail,
   FaUserCircle,

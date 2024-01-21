@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react';
-import Button from '../Button';
+import Button from '../common/Button';
 import Votebar from './Votebar';
 import { renderStarFromNumber } from '../../utils/helper';
 import Modal from './Modal';
@@ -11,8 +11,6 @@ import Swal from 'sweetalert2';
 import Comment from './Comment';
 
 const Ratings = ({ product, children, handleRateNow }) => {
-  
-
   return (
     <div>
       <div className="flex border rounded-3xl">

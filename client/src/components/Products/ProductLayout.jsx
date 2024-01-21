@@ -8,7 +8,7 @@ import {
   renderStarFromNumber,
 } from '../../utils/helper';
 import SelectQuantity from '../ProductDetail/SelectQuantity';
-import Button from '../Button';
+import Button from '../common/Button';
 const settings = {
   dots: false,
   infinite: true,

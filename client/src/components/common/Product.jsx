@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { formatMoney, renderStarFromNumber } from 'utils/helper';
 import newImage from 'assets/images/new.png';
 import trendingImage from 'assets/images/trending.png';
-import { SelectOption } from './';
+import { SelectOption } from '..';
 import icons from 'utils/icons.util';
 import { Link } from 'react-router-dom';
 import path from 'utils/path.util';

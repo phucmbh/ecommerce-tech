@@ -3,9 +3,11 @@ import logo from '/images/logo.png';
 import icons from 'utils/icons.util';
 import { Link } from 'react-router-dom';
 import path from 'utils/path.util';
+import { useSelector } from 'react-redux';
 
 const { RiPhoneFill, MdEmail, BsFillCartFill, FaUserCircle } = icons;
 const Header = () => {
+  const { user } = useSelector((state) => state.users);
   return (
     <div className=" w-main h-[110px] py-[35px] flex justify-between">
       <Link to={`${path.HOME}`}>
@@ -34,9 +36,21 @@ const Header = () => {
           <BsFillCartFill />
           <span>0 item</span>
         </div>
-        <div className="border-r flex items-center justify-center px-6">
-          <FaUserCircle />
-        </div>
+        {console.log(user)}
+        {user && (
+          <>
+            <Link
+              to={
+                user?.role === 'admin'
+                  ? `${path.ADMIN}/${path.DASHBOARD}`
+                  : `${path.MEMBER}/${path.PERSONAL}`
+              }
+              className="border-r flex items-center justify-center px-6"
+            >
+              <FaUserCircle />
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
