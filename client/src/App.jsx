@@ -13,7 +13,7 @@ import {
   VerifyEmail,
   ForgotPassword,
   ResetPassword,
-} from 'pages/public';
+} from 'views/public';
 import {
   AdminLayout,
   ManageOrders,
@@ -21,9 +21,9 @@ import {
   ManageUsers,
   CreateProduct,
   Dashboard,
-} from 'pages/admin';
+} from 'views/admin';
 
-import { MemberLayout, Personal } from 'pages/member';
+import { MemberLayout, Personal } from 'views/member';
 import path from 'utils/path.util';
 import { useSelector } from 'react-redux';
 import Modal from 'components/common/Modal';
